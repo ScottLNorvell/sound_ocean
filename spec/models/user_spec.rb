@@ -29,7 +29,7 @@ describe User do
   it { should respond_to(:database_authenticatable) }   
   it { should respond_to(:registerable) }   
   it { should respond_to(:recoverable) }   
-  it { should respond_to(:rememberable) }   
+  it { should respond_to(:rememberable) }
   it { should respond_to(:trackable) }   
 	it { should respond_to(:validatable) }
   #omniauth attribuates
