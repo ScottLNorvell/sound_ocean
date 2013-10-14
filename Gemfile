@@ -7,7 +7,7 @@ gem 'pg'
 
 gem "faker", "~> 1.2.0"
 
-
+gem 'devise'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
