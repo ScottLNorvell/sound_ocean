@@ -5,6 +5,8 @@ gem 'rails', '3.2.13'
 
 gem 'pg'
 
+gem "faker", "~> 1.2.0"
+
 
 
 group :assets do
@@ -27,4 +29,5 @@ end
 
 group :test do
 	gem "capybara", "~> 2.1.0"
+	gem "factory_girl_rails", "~> 4.0"
 end
