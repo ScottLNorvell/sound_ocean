@@ -10,7 +10,8 @@ describe Song do
 	it { should respond_to(:artist) } 
 	it { should respond_to(:sc_track_id) }
 	it { should respond_to(:discoverer_id) } 
-	it { should respond_to(:discoveries) }   
+	it { should respond_to(:discoveries) } 
+	 
 
 	it { should be_valid } 
 
