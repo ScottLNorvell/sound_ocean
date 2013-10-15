@@ -21,25 +21,12 @@ describe User do
 
   subject { @user }
 
-<<<<<<< HEAD
-	it { should respond_to(:email) }
-	it { should respond_to(:username) } 
-	it { should respond_to(:password) }
-	it { should respond_to(:password_confirmation) } 
-  # devise attributes
-  it { should respond_to(:database_authenticatable) }   
-  it { should respond_to(:registerable) }   
-  it { should respond_to(:recoverable) }   
-  it { should respond_to(:rememberable) }
-  it { should respond_to(:trackable) }   
-	it { should respond_to(:validatable) }
-=======
   it { should respond_to(:email) }
   it { should respond_to(:username) } 
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) } 
   it { should respond_to(:score) }
->>>>>>> 6bc490414c6ecffcae112e610d73ec1de3428360
+
   #omniauth attribuates
   # it { should respond_to(:omniauthable) }
 
