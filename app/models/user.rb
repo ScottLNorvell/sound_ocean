@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 			user.provider = auth.provider
 			user.uid = auth.uid
 			user.username = auth.info.nickname
+      user.sc_acces_token = auth.credentials.token
 		end
 	end
 
