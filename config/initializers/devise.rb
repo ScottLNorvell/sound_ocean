@@ -107,6 +107,7 @@ Devise.setup do |config|
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming his account.
   # config.allow_unconfirmed_access_for = 2.days
+  config.omniauth :soundcloud, ENV["SOUND_OCEAN_SC_CLIENT_ID"], ENV["SOUND_OCEAN_SC_CLIENT_SECRET"]
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm

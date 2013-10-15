@@ -17,7 +17,7 @@ require "spec_helper"
 
 describe User do
   
-  before { @user = User.create email: 'test@example.com', username: 'Joe The Burger', password: "secret", password_confirmation: "secret", score: 1.0 }
+  before { @user = User.create email: 'test@example.com', username: 'Joe The Burger', password: "makethislonger", password_confirmation: "makethislonger", score: 1.0 }
 
   subject { @user }
 
@@ -25,20 +25,12 @@ describe User do
   it { should respond_to(:username) } 
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) } 
-  it { should respond_to(:score) } 
-  # devise attributes
 
-  # it { should respond_to(:database_authenticatable) }   
-  # it { should respond_to(:registerable) }   
-  # it { should respond_to(:recoverable) }   
-  # it { should respond_to(:rememberable) }
-  # it { should respond_to(:trackable) }   
-  # it { should respond_to(:validatable) }
-  
+  it { should respond_to(:score) }
   #omniauth attribuates
   # it { should respond_to(:omniauthable) }
 
   it { should be_valid } 
-  it { should_not be_admin } 
+  # it { should_not be_admin } 
 
 end
