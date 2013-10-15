@@ -27,14 +27,16 @@ describe User do
   it { should respond_to(:password_confirmation) } 
   it { should respond_to(:score) } 
   # devise attributes
-  it { should respond_to(:database_authenticatable) }   
-  it { should respond_to(:registerable) }   
-  it { should respond_to(:recoverable) }   
-  it { should respond_to(:rememberable) }
-  it { should respond_to(:trackable) }   
-  it { should respond_to(:validatable) }
+
+  # it { should respond_to(:database_authenticatable) }   
+  # it { should respond_to(:registerable) }   
+  # it { should respond_to(:recoverable) }   
+  # it { should respond_to(:rememberable) }
+  # it { should respond_to(:trackable) }   
+  # it { should respond_to(:validatable) }
+  
   #omniauth attribuates
-  it { should respond_to(:omniauthable) }
+  # it { should respond_to(:omniauthable) }
 
   it { should be_valid } 
   it { should_not be_admin } 
