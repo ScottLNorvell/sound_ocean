@@ -5,16 +5,17 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :score, :username
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :score, :username, :sc_access_token
   # validates_presence_of :email
   validates_uniqueness_of :username
 
 	def self.from_omniauth(auth)
+		puts "******************************** #{auth.credentials.token} *************************"
 		where(auth.slice(:provider, :uid)).first_or_create do |user|
 			user.provider = auth.provider
 			user.uid = auth.uid
 			user.username = auth.info.nickname
-      user.sc_acces_token = auth.credentials.token
+			user.sc_access_token = auth.credentials.token
 		end
 	end
 
