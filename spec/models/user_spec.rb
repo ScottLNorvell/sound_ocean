@@ -1,17 +1,35 @@
 require "spec_helper"
 
-# describe User do
-	
-# 	before { @user = User.create email: 'test@example.com', username: 'Joe The Burger' }
+  # create_table "users", :force => true do |t|
+  #   t.string   "email",                  :default => "", :null => false
+  #   t.string   "encrypted_password",     :default => "", :null => false
+  #   t.string   "reset_password_token"
+  #   t.datetime "reset_password_sent_at"
+  #   t.datetime "remember_created_at"
+  #   t.integer  "sign_in_count",          :default => 0
+  #   t.datetime "current_sign_in_at"
+  #   t.datetime "last_sign_in_at"
+  #   t.string   "current_sign_in_ip"
+  #   t.string   "last_sign_in_ip"
+  #   t.datetime "created_at",                             :null => false
+  #   t.datetime "updated_at",                             :null => false
+  #   t.string   "username"
 
-# 	subject { @user }
+describe User do
+  
+  before { @user = User.create email: 'test@example.com', username: 'Joe The Burger', password: "makethislonger", password_confirmation: "makethislonger", score: 1.0 }
 
-# 	it { should respond_to(:email) }
-# 	it { should respond_to(:username) } 
-# 	it { should respond_to(:soundcloud_id) }
-# 	it { should respond_to(:score) } 
-# 	it { should respond_to(:discovered_songs) }   
+  subject { @user }
 
-# 	it { should be_valid } 
+  it { should respond_to(:email) }
+  it { should respond_to(:username) } 
+  it { should respond_to(:password) }
+  it { should respond_to(:password_confirmation) } 
+  it { should respond_to(:score) }
+  #omniauth attribuates
+  # it { should respond_to(:omniauthable) }
 
-# end
+  it { should be_valid } 
+  # it { should_not be_admin } 
+
+end
