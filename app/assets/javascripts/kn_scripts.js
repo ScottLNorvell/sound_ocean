@@ -364,7 +364,7 @@ function checkCirclePosition() {
         volume = volume_parabolic;
         targObj.setOpacity(30/distance);
         targSong.setVolume(volume);
-        text.setText('Circle Position = {x: ' + pos.x + ', y: ' + pos.y + "} Distance = " + Math.round(distance) + " Volume = " + Math.round(volume));
+        text.setText('Circle Position = {x: ' + Math.round(pos.x) + ', y: ' + Math.round(pos.y) + "} Distance = " + Math.round(distance) + " Volume = " + Math.round(volume));
       } else {
         targObj.setOpacity(0.1);
         targSong.setVolume(0);
