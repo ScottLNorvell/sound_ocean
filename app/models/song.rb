@@ -3,11 +3,11 @@ class Song < ActiveRecord::Base
 
   belongs_to :discoverer, class_name: "User"
   has_and_belongs_to_many :playlists
+
   after_initialize :init
 
   def init
 		self.discoveries ||= 1
 	end
-
 
 end
