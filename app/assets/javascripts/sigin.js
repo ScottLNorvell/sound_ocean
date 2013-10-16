@@ -1,4 +1,7 @@
 $(function() {
-	$('#signin-modal').dialog()
+	
+	$('#sign-in-link').click(function() {
+		$('#signin-modal').dialog();
+	});	
 
 });    

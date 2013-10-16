@@ -13,8 +13,9 @@ class User < ActiveRecord::Base
   # validates_presence_of :email
   validates_uniqueness_of :username
 
+  after_initialize :init
+
 	def self.from_omniauth(auth)
-		puts "******************************** #{auth.credentials.token} *************************"
 		where(auth.slice(:provider, :uid)).first_or_create do |user|
 			user.provider = auth.provider
 			user.uid = auth.uid
@@ -48,6 +49,10 @@ class User < ActiveRecord::Base
 	  else
 	    super
 	  end
+	end
+
+	def init
+		self.score ||= 0
 	end
 
 end

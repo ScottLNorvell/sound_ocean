@@ -21,5 +21,9 @@ SoundOcean::Application.routes.draw do
   root :to => "game#index"
 
   get '/get_songs' => 'game#get_songs'
+
+  post 'discover/:sc_track_id' => 'songs#discover'
+
+  # get '/new_user' => 'users#index'
   
 end
