@@ -357,6 +357,8 @@ function checkCirclePosition() {
         text.setText(targObj.getName());
         // 
         // add to playlist
+        discoverSong(targObj.getAttr('track_data'))
+
         targSong.setVolume(100);
       } else if (distance <= 200) {
         // var volume_linear = -5/8 * distance + 125;
@@ -452,4 +454,8 @@ function getLimits(height, width) {
       yMax: height - b
     }
   ]
+}
+
+function discoverSong (track_data) {
+  console.log(track_data)
 }
