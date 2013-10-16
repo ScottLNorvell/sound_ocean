@@ -113,7 +113,7 @@ function redrawGame() {
 function drawGame() {
   // make stage
   var stage = new Kinetic.Stage({
-    container: 'container',
+    container: 'game-container',
     width: scr_width,
     height: scr_height
   });
@@ -338,7 +338,7 @@ function checkCirclePosition() {
   
   if (pos.x < 0 || pos.x > window.innerWidth || pos.y < 0 || pos.y > window.innerHeight ) {
     if (!alerted) {
-      $('#container').html('')
+      $('#game-container').html('')
       alerted = true;
       out_of_bounds = true;
       redrawGame();

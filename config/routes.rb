@@ -18,6 +18,8 @@ SoundOcean::Application.routes.draw do
 
   get '/get_songs' => 'game#get_songs'
 
-  get '/new_user' => 'users#index'
+  post 'discover/:sc_track_id' => 'songs#discover'
+
+  # get '/new_user' => 'users#index'
   
 end
