@@ -12,4 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require soundcloud_sdk
+//= require kinetic
+//= require keyboard
+//= require sc_scripts
+//= require kn_scripts
 //= require_tree .
