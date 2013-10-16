@@ -21,9 +21,13 @@ $('#side-menu').on('click', function() {
   });
 
   $( "#side-menu-ul" ).selectable();
+  $( "#user_nav" ).dialog();
+
+
   // $( '#side-menu' ).hover(function() {
   //   $( "#side-menu" ).toggle( "slide", {direction: 'right'});
   // });
+
 });
 
 
