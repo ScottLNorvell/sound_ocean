@@ -7,7 +7,7 @@ class SongsController < ApplicationController
   		current_user.score += 1
   	else
   		song = current_user.discoveries.create params[:song]
-  		curre
+  		current_user.score += 10
   	end
 
   	render json: song 
