@@ -1,0 +1,4 @@
+$(function() {
+	$('#signin-modal').dialog()
+
+});    
