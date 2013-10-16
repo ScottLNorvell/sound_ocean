@@ -360,7 +360,7 @@ function checkCirclePosition() {
         targSong.setVolume(100);
       } else if (distance <= 200) {
         // var volume_linear = -5/8 * distance + 125;
-        var volume_parabolic = Math.pow((distance - 200),2) / 256;
+        var volume_parabolic = Math.pow((distance - 200),2) / 256; // THANKS DAD!
         volume = volume_parabolic;
         targObj.setOpacity(30/distance);
         targSong.setVolume(volume);
