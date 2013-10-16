@@ -7,7 +7,8 @@ describe Playlist do
 	subject { @playlist }
 
 	it { should respond_to(:name) }
-	it { should respond_to(:user_id) }  
+  it { should respond_to(:user_id) }  
+	it { should respond_to(:songs) }  
 
 	it { should be_valid } 
 

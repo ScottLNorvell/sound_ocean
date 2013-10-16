@@ -13,6 +13,7 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) } 
   it { should respond_to(:score) }
+
   #omniauth attribuates
   # it { should respond_to(:omniauthable) }
   # 

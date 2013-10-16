@@ -4,10 +4,11 @@
   <title>SoundOcean</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 <body>
- <div id="container">
+ <div id="container"></div>
       <div id="user_nav">
         <% if user_signed_in? %>
           Logged in as <strong><%= current_user.username %></strong>.
@@ -18,12 +19,31 @@
           <%= link_to "Login", new_user_session_path %> |
           <%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
         <% end %>
+        
       </div>
 
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, id: "flash_#{name}" %>
       <% end %>
-
+      <div class="aside" id="side-menu">
+        <ul class="aside-ul" id="side-menu-ul">
+          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1</a></li>
+          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 12</a></li>
+          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 123</a></li>
+          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1234</a></li>
+        </ul>
+      </div>
+      <div class="aside" id="ranking">
+        <ul class="aside-ul" id="ranking-ul">
+          <span id="current-user-ranking">8</span>
+          <li>User-Ranking 1</li>
+          <li>User-Ranking 2</li>
+          <li>User-Ranking 3</li>
+          <li>User-Ranking 4</li>
+        </ul>
+      </div>
+        
+      
 <%= yield %>
   </div>
 

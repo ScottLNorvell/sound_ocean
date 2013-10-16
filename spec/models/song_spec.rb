@@ -11,6 +11,7 @@ describe Song do
 	it { should respond_to(:sc_track_id) }
 	it { should respond_to(:discoverer_id) } 
 	it { should respond_to(:discoverer) }
+	it { should respond_to(:playlists) }
 	 
 
 	it { should be_valid } 
