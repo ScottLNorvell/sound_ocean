@@ -1,0 +1,69 @@
+body {
+  background-color: lightblue;
+}
+
+
+.aside {
+  background-color: #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=40);
+  position: fixed;
+  z-index: 1000;
+
+  
+
+  /*-webkit-box-shadow: -5px 0px 5px 0px rgba(0, 0, 0, .3);*/
+  /*box-shadow: -5px 0px 5px 0px rgba(0, 0, 0, .3);*/
+  /*overflow: hidden;*/
+}
+
+#side-menu {
+  width: 200px;
+  bottom: 10%;
+  top: 10%;
+  right: -180px;
+  -webkit-border-radius: 15px 0px 0px 15px;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.playlist-track {
+  text-decoration: none;
+  color: black;
+}
+
+#ranking {
+  width: 200px;
+  height: 200px;
+  left: -170px;
+  bottom: -170px;
+  -webkit-border-radius: 0px 15px 0px 0px;
+  border-radius: 0px 15px 0px 0px;
+  padding-top: 0px;
+}
+
+.aside-ul {
+  padding: 10% 0 10% 10%;
+  font-family: 'Raleway Dots', cursive;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: 1px;
+  white-space: nowrap;
+
+}
+#feedback { font-size: 1.4em; }
+#side-menu-ul .ui-selecting { background: #FECA40; }
+#side-menu-ul .ui-selected { background: #F39814; color: white; }
+#side-menu-ul {
+  
+}
+
+#current-user-ranking {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+
