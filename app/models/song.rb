@@ -3,4 +3,10 @@ class Song < ActiveRecord::Base
 
   belongs_to :discoverer, class_name: "User"
 
+  after_initialize :init
+
+  def init
+		self.discoveries ||= 1
+	end
+
 end
