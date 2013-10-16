@@ -3,6 +3,7 @@ var target_objects = [], avatar, layer, text, songs = {};
 var colors = ['yellow', 'blue', 'green', 'purple', 'orange'];
 
 var out_of_bounds = false;
+var discovering_song = false;
 
 // keep track of keys pressed
 var pressed = {};
@@ -354,14 +355,21 @@ function checkCirclePosition() {
     // only modify if we are close to targObj
     if (distance != false) {
       if (distance <= 40) {
+        if (!discovering_song) {
+          discovering_song = true;
+           
+          // add to playlist
+          discoverSong(targObj.getAttr('track_data'))
+          
+        }
+
         text.setText(targObj.getName());
-        // 
-        // add to playlist
-        discoverSong(targObj.getAttr('track_data'))
 
         targSong.setVolume(100);
+
       } else if (distance <= 200) {
         // var volume_linear = -5/8 * distance + 125;
+        // discovering_song = false;
         var volume_parabolic = Math.pow((distance - 200),2) / 256; // THANKS DAD!
         volume = volume_parabolic;
         targObj.setOpacity(30/distance);
@@ -374,6 +382,30 @@ function checkCirclePosition() {
     } 
   }
   layer.draw();
+}
+
+function discoverSong (track_data) {
+  // add song to db
+  var params = {
+    song: {
+      sc_track_id: track_data.id,
+      title: track_data.title,
+      genre: track_data.genre,
+      artist: track_data.artist
+    }
+  }
+  $.ajax({
+    url: '/discover/' + track_data.id,    
+    type: 'POST',
+    dataType: 'JSON',
+    data: params,
+  })
+  .done(function(data) {
+    console.log(data);
+  });
+  
+
+  console.log(track_data);
 }
 
 function getDistanceFrom(target) {
@@ -456,6 +488,4 @@ function getLimits(height, width) {
   ]
 }
 
-function discoverSong (track_data) {
-  console.log(track_data)
-}
+
