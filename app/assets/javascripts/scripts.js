@@ -21,12 +21,32 @@ $('#side-menu').on('click', function() {
   });
 
   $( "#side-menu-ul" ).selectable();
-  $( "#user_nav" ).dialog();
+  // $( "#user_nav" ).dialog();
 
-
-  // $( '#side-menu' ).hover(function() {
-  //   $( "#side-menu" ).toggle( "slide", {direction: 'right'});
-  // });
+$(function() {
+    $( ".modal-box" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+ 
+    $( "#sign-up-link" ).click(function() {
+      $( "#signup-modal" ).dialog( "open" );
+    });
+    $( "#sign-in-link" ).click(function() {
+      $( "#signin-modal" ).dialog( "open" );
+    });
+    $( "#modal-link" ).click(function(e) {
+        e.preventDefault();      
+      $( "#modal-test-div-id" ).dialog( "open" );
+    });
+  });
 
 });
 
