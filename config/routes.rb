@@ -1,6 +1,10 @@
 SoundOcean::Application.routes.draw do
 
+  get "songs/discover"
+
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
+
+  post 'discover/:sc_track_id' => 'songs#discover'
 #         new_user_session GET    /users/sign_in(.:format)       devise/sessions#new
 #             user_session POST   /users/sign_in(.:format)       devise/sessions#create
 #     destroy_user_session DELETE /users/sign_out(.:format)      devise/sessions#destroy

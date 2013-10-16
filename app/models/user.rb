@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :score, :username, :sc_access_token
 
   has_many :discoveries, foreign_key: "discoverer_id", class_name: 'Song'
+  has_many :playlists
 
   # validates_presence_of :email
   validates_uniqueness_of :username
