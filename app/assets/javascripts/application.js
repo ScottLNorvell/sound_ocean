@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= sidr
 //= require_tree .
+
