@@ -113,7 +113,7 @@ function redrawGame() {
 function drawGame() {
   // make stage
   var stage = new Kinetic.Stage({
-    container: 'container',
+    container: 'game-container',
     width: scr_width,
     height: scr_height
   });
@@ -338,7 +338,7 @@ function checkCirclePosition() {
   
   if (pos.x < 0 || pos.x > window.innerWidth || pos.y < 0 || pos.y > window.innerHeight ) {
     if (!alerted) {
-      $('#container').html('')
+      $('#game-container').html('')
       alerted = true;
       out_of_bounds = true;
       redrawGame();
@@ -360,7 +360,7 @@ function checkCirclePosition() {
         targSong.setVolume(100);
       } else if (distance <= 200) {
         // var volume_linear = -5/8 * distance + 125;
-        var volume_parabolic = Math.pow((distance - 200),2) / 256;
+        var volume_parabolic = Math.pow((distance - 200),2) / 256; // THANKS DAD!
         volume = volume_parabolic;
         targObj.setOpacity(30/distance);
         targSong.setVolume(volume);
