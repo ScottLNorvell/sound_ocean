@@ -35,17 +35,17 @@ $('#side-menu').on('click', function() {
   });
 
   $( "#sign-up-link" ).click(function() {
-    $( "#signup-modal" ).dialog( "open" );
+    $( "#signup-modal" ).dialog( "open", "minWidth", 500
+    );
   });
   $( "#sign-in-link" ).click(function() {
     $( "#signin-modal" ).dialog( "open" );
   });
   $( "#modal-link" ).click(function(e) {
       e.preventDefault();      
-    $( "#modal-test-div-id" ).dialog( "open" );
+  $( "#modal-test-div-id" ).dialog( "open" );
   });
 });
-
 
 var animation_duration = 700;
 
