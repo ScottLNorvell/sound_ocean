@@ -1,50 +1,50 @@
-<!-- <div id="user_nav">
-        <span id="not-opacity">
-          Exploring as <strong><%= current_user.username %></strong>.
-          <%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-          <%= link_to "Home", root_path %>
-          <a href="#" id="new-genre" >New Genre</a>
-          <a href="#" id="test-song" >test song</a>
-        </span>
-      </div> -->
 
-<div id="genre-picker" class="modal-box"> 
-	 <select name="" id="genre-select">
-	 	<option value="folk">folk</option>
-	 	<option value="rock">rock</option>
-	 	<option value="pop">pop</option>
-	 	<option value="indie">indie</option>
-	 	<option value="electronic">electronic</option>
-	 </select>
-	<button id="genre-button" >Pick a genre</button>
-</div>
-
-<div id="" class="modal-box"> 
-	 This is the song you are looking at!
-	 <p id="discovered-song-title" >title</p>
-	<button id="add-button" >add-to-playlist</button>
+<div id="user_nav">
+  <span id="not-opacity">
+    Exploring as <strong><%= current_user.username %></strong>.
+    <%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
+    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+    <%= link_to "Home", root_path %>
+    <a href="#" id="new-genre" >New Genre</a>
+    <a href="#" id="test-song" >test song</a>
+  </span>
 </div>
 
 <div id="game-container"></div>
 
-<div class="aside" id="playlist-menu">
-        <ul class="aside-ul" id="playlist-ul">
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1</a></li>
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 12</a></li>
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 123</a></li>
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1234</a></li>
-        </ul>
-      </div>
-      <div class="aside" id="ranking">
-        <ul class="aside-ul" id="ranking-ul">
-        	YOUR CURRENT SCORE
-          <span id="current-user-score">8</span>
-          <li id="score-title">Top Discoverers</li>
-          <li>1: Scott -  1</li>
-          <li>2: David -  2</li>
-          <li>3: Francesca -  3</li>
-          <li>4: User - 4</li>
-        </ul>
-      </div>
 
+<div class="aside" id="side-menu">
+  <ul class="aside-ul" id="side-menu-ul">
+    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1</a></li>
+    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 12</a></li>
+    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 123</a></li>
+    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1234</a></li>
+  </ul>
+</div>
+<div class="aside" id="ranking">
+  <ul class="aside-ul" id="ranking-ul">
+  	YOUR CURRENT SCORE
+    <span id="current-user-score">8</span>
+    <li id="score-title">Top Discoverers</li>
+    <li>1: Scott -  1</li>
+    <li>2: David -  2</li>
+    <li>3: Francesca -  3</li>
+    <li>4: User - 4</li>
+  </ul>
+</div>
+<div id="genre-picker">
+  <select name="" id="genre-select">
+    <option value="folk">folk</option>
+    <option value="rock">rock</option>
+    <option value="pop">pop</option>
+    <option value="indie">indie</option>
+    <option value="electronic">electronic</option>
+  </select>
+  <button id="genre-button" >Pick a genre</button>
+</div>
+
+<div id="current-song" class=""> 
+   This is the song you are looking at!
+   <p id="song-title" >title</p>
+  <button id="add-button" >add-to-playlist</button>
+</div>

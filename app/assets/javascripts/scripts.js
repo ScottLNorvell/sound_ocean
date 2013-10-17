@@ -1,12 +1,5 @@
 $(document).ready(function() {
-$('#playlist-menu').on('click', function() {
-    var $this = $(this);
-    if($this.hasClass('active')) {
-      animateMenuOut();
-    } else {
-      animateMenuIn();
-    }
-  });
+
 
   $('#playlist-menu').hover(function() {
     animateMenuIn();
@@ -20,34 +13,35 @@ $('#playlist-menu').on('click', function() {
     animateRankingOut();
   });
 
-  // $( "#playlist-ul" ).selectable();
-  // $( "#user_nav" ).dialog();
 
-// $(function() {
-    $( ".modal-box" ).dialog({
-      // autoOpen: false,
-      show: {
-        effect: "blind",
-        duration: 1000
-      },
-      hide: {
-        effect: "explode",
-        duration: 1000
-      }
+  $('#genre-picker').bPopup({
+    transition: "slideDown",
+    speed: 400,
+    opacity: "0.4",
+    modalClose: false,
+    escClose: false
     });
- 
-    // $( "#sign-up-link" ).click(function() {
-    //   $( "#signup-modal" ).dialog( "open" );
-    // });
-    // $( "#sign-in-link" ).click(function() {
-    //   $( "#signin-modal" ).dialog( "open" );
-    // });
-    $( "#modal-link" ).click(function(e) {
-        e.preventDefault();      
-      $( "#modal-test-div-id" ).dialog( "open" );
+    $('#genre-button').on('click', function() {
+      console.log("genre= ", $('#genre-select').val());
+      $('#genre-picker').bPopup().close();
+  });
+    
+ $('#new-genre').on('click', function(e) {
+  e.preventDefault();
+    $('#genre-picker').bPopup({
+      transition: "slideDown",
+      speed: 400,
+      opacity: "0.4"
     });
-  // });
-
+  });
+ $('#test-song').on('click', function(e) {
+  e.preventDefault();
+  $('#current-song').bPopup({
+    transition: "slideUp",
+    speed: 400,
+    opacity: "0.1"
+  });
+  });
 });
 
 
@@ -59,12 +53,13 @@ function animateMenuIn() {
       right: '0px',
       opacity: 1
     },
-    animation_duration, 'easeInOutQuart',
+    animation_duration,
     function() {
       $side_menu.addClass('active');
     }
   );
 }
+
 function animateMenuOut() {
   $side_menu = $('#playlist-menu');
   $side_menu.stop().animate({right: '-180px', opacity: 0.5}, animation_duration);
@@ -78,12 +73,13 @@ function animateRankingIn() {
       bottom: '0px',
       opacity: 1
     },
-    animation_duration, 'easeInOutQuart',
+    animation_duration,
     function() {
       $side_menu.addClass('active');
     }
   );
 }
+
 function animateRankingOut() {
   $side_menu = $('#ranking');
   $side_menu.stop().animate({left: '-170px', bottom: '-170px', opacity: 0.5}, animation_duration);
