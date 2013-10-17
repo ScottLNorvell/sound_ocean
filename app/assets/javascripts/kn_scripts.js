@@ -419,18 +419,24 @@ function discoverSong (track_data) {
   })
   .done(function(data) {
     // update user score, etc...
-    var song = data.song;
-    var track_id = song.sc_track_id
-    targObj = target_objects[track_id];
+    var song_data = data.song;
+    var track_id = song_data.sc_track_id;
+    var songObj = songs[track_id];
+    var targObj = target_objects[track_id];
     delete target_objects[track_id];
     targObj.remove();
+
+
     layer.draw();
     discovering_song = false;
 
     $('#current-user-score').html(data.user_score);
-    var songli = $('<li>' + song.artist + ' - ' + song.title + '</li>');
+    var songli = $('<li>' + song_data.artist + ' - ' + song_data.title + '</li>');
     $('#playlist-ul').prepend(songli);
-    $('#discovered-song-title').html(song.title);
+    $('#discovered-song-title').html(song_data.title);
+
+    // move this to onclick event from popup button
+    songObj.destruct();
 
     console.log(data);
 
