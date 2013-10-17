@@ -23,7 +23,7 @@ $('#side-menu').on('click', function() {
   $( "#side-menu-ul" ).selectable();
   // $( "#user_nav" ).dialog();
 
-$(function() {
+// $(function() {
     $( ".modal-box" ).dialog({
       // autoOpen: false,
       show: {
@@ -36,17 +36,17 @@ $(function() {
       }
     });
  
-    $( "#sign-up-link" ).click(function() {
-      $( "#signup-modal" ).dialog( "open" );
-    });
-    $( "#sign-in-link" ).click(function() {
-      $( "#signin-modal" ).dialog( "open" );
-    });
+    // $( "#sign-up-link" ).click(function() {
+    //   $( "#signup-modal" ).dialog( "open" );
+    // });
+    // $( "#sign-in-link" ).click(function() {
+    //   $( "#signin-modal" ).dialog( "open" );
+    // });
     $( "#modal-link" ).click(function(e) {
         e.preventDefault();      
       $( "#modal-test-div-id" ).dialog( "open" );
     });
-  });
+  // });
 
 });
 
