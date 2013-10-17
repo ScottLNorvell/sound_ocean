@@ -1,7 +1,9 @@
 <div id="welcome-box" class="devise-box">
 
 	<h1>Welcome to the Sound Ocean</h1>
-		<div id="options">
+		<p><%= link_to image_tag("btn-connect-sc-l.png", :border => 0), user_omniauth_authorize_path(:soundcloud), :class => "sc-button" %></p>
+
+    <div id="options">
 		<% if user_signed_in? %>
 			<div class="form-elements">Signed in as <%= current_user.username %>. Not you?<br /></div>
 			<br />
@@ -12,7 +14,7 @@
 			<p><%= link_to "First time at sea?", new_user_registration_path, class: "button-to" %></p>
 			<p><%= link_to "Dive in!", new_user_session_path, class: "button-to" %></p>
 			
-			<p><%= link_to image_tag("btn-connect-sc-l.png", :border => 0), user_omniauth_authorize_path(:soundcloud) %></p>
+			
 		</div>
 		<% end %>
 

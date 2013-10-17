@@ -8,6 +8,8 @@ a, h1, body, p {
   font-size: 1em;
 }
 
+
+
 h1 {
   padding: 20px;
   font-size: 2em;
@@ -39,7 +41,20 @@ a {
   
   -webkit-border-radius: 20px;
 }
-
+#flash_alert {
+  color: #fff;
+  text-align: center;
+  margin-top: 15px;
+}
+#error_explanation {
+  color: #000;
+}
+#error_explanation h2 {
+  line-height: 25px;
+}
+#error_explanation li {
+  line-height: 25px; 
+}
 .button-to {
     font-family: 'Raleway', sans-serif;
     font-size: 1em;
@@ -83,11 +98,9 @@ input {
   border: 2px solid #4FC1DB;
 }
 
-img {
-  margin: 30px
+.sc-button img {
+  margin: 20px 0 10px 0;
 }
-
-
 
 /*=========================END DEVISE STYLES========================================*/
 #user_nav {
@@ -142,7 +155,6 @@ img {
   text-rendering: optimizeLegibility;
   letter-spacing: 1px;
   white-space: nowrap;
-
 }
 
 #current-user-ranking {
@@ -162,13 +174,13 @@ img {
 }
 
 #genre-select, #genre-button, option {
-  font-family: 'Raleway Dots', cursive;
+  font-family: 'Raleway', sans-serif;
   font-size: 18px;
 }
 
 #genre-select {  
   border: 0; 
-  font-family: 'Raleway Dots', cursive;
+  font-family: 'Raleway', sans-serif;
   font-size:18px;
   margin: 30px 0 0 30px;
 
