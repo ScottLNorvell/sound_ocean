@@ -9,42 +9,10 @@
 </head>
 <body>
  <div id="container"></div>
-      <div id="user_nav">
-        <% if user_signed_in? %>
-        <span id="not-opacity">
-          Logged in as <strong><%= current_user.username %></strong>.
-          <%= link_to 'Edit profile', edit_user_registration_path %> |
-          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-        <% else %>
-        <!-- link_to(race.homepage, :id => 'current-race') do ... -->
-          <%= link_to "Sign up", new_user_registration_path, id: "sign-up-link" %> |
-          <%= link_to "Login", new_user_session_path, id: "sign-in-link" %> |
-          <%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
-          <%= link_to "MODAL", "#", id: "modal-link" %>
-        <% end %>
-        </span>
-      </div>
-
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, id: "flash_#{name}" %>
       <% end %>
-      <div class="aside" id="side-menu">
-        <ul class="aside-ul" id="side-menu-ul">
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1</a></li>
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 12</a></li>
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 123</a></li>
-          <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1234</a></li>
-        </ul>
-      </div>
-      <div class="aside" id="ranking">
-        <ul class="aside-ul" id="ranking-ul">
-          <span id="current-user-ranking">8</span>
-          <li>User-Ranking 1</li>
-          <li>User-Ranking 2</li>
-          <li>User-Ranking 3</li>
-          <li>User-Ranking 4</li>
-        </ul>
-      </div>
+      
         
       
 <%= yield %>
