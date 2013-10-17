@@ -8,6 +8,8 @@ a, h1, body, p {
   font-size: 1em;
 }
 
+
+
 h1 {
   padding: 20px;
   font-size: 2em;
@@ -39,7 +41,20 @@ a {
   
   -webkit-border-radius: 20px;
 }
-
+#flash_alert {
+  color: #fff;
+  text-align: center;
+  margin-top: 15px;
+}
+#error_explanation {
+  color: #000;
+}
+#error_explanation h2 {
+  line-height: 25px;
+}
+#error_explanation li {
+  line-height: 25px; 
+}
 .button-to {
     font-family: 'Raleway', sans-serif;
     font-size: 1em;
@@ -84,11 +99,9 @@ input {
   border: 2px solid #4FC1DB;
 }
 
-img {
-  margin: 30px
+.sc-button img {
+  margin: 20px 0 10px 0;
 }
-
-
 
 /*=========================END DEVISE STYLES========================================*/
 #user_nav {
@@ -141,7 +154,6 @@ img {
   text-rendering: optimizeLegibility;
   letter-spacing: 1px;
   white-space: nowrap;
-
 }
 
 #current-user-ranking {
@@ -160,12 +172,6 @@ img {
   border-radius: 15px 15px 15px 15px;
 }
 
-/*#genre-select, #genre-button, option {
-  color: #4FC1DB;
-  font-family: 'Raleway', sans-serif;
-  font-size: 1em;
-}*/
-
 #genre-select {  
   border: 0; 
   font-family: 'Raleway', sans-serif;
@@ -177,8 +183,9 @@ img {
 }
 
 #genre-picker, #current-song {
- display:none; 
+ display:none;
 }
+
 
 a#genre-button {
   color: white;

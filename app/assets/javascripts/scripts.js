@@ -41,6 +41,8 @@ $(document).ready(function() {
   });
   });
 
+  $('#error_explanation').parents('#signup-box').css('height','580px');
+
 });
 
 
