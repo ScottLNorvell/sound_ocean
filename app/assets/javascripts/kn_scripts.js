@@ -1,4 +1,4 @@
-var target_objects = [], avatar, layer, text, songs = {};
+var target_objects = {}, avatar, layer, text, songs = {};
 
 var colors = ['yellow', 'blue', 'green', 'purple', 'orange'];
 
@@ -92,7 +92,7 @@ function redrawGame() {
   // clear/reset values
   $.each(songs, function(i,song ) { song.destruct(); } );
   songs = {};
-  target_objects = [];
+  target_objects = {};
   KeyboardJS.clear('up');
   KeyboardJS.clear('down');
   KeyboardJS.clear('left');
@@ -166,7 +166,7 @@ function drawGame() {
       name: track.id,
       track_data: track
     });
-    target_objects.push(circle);
+    target_objects[track.id] = circle;
     layer.add(circle);
   });
 
@@ -355,7 +355,7 @@ function checkCirclePosition() {
   
   if (pos.x < 0 || pos.x > window.innerWidth || pos.y < 0 || pos.y > window.innerHeight ) {
     if (!alerted) {
-      $('#game-container').html('')
+      $('#game-container').html('');
       alerted = true;
       out_of_bounds = true;
       redrawGame();
@@ -407,7 +407,8 @@ function discoverSong (track_data) {
       sc_track_id: track_data.id,
       title: track_data.title,
       genre: track_data.genre,
-      artist: track_data.artist
+      artist: track_data.artist,
+      url: track_data.url
     }
   }
   $.ajax({
@@ -417,7 +418,22 @@ function discoverSong (track_data) {
     data: params,
   })
   .done(function(data) {
+    // update user score, etc...
+    var song = data.song;
+    var track_id = song.sc_track_id
+    targObj = target_objects[track_id];
+    delete target_objects[track_id];
+    targObj.remove();
+    layer.draw();
+    discovering_song = false;
+
+    $('#current-user-score').html(data.user_score);
+    var songli = $('<li>' + song.artist + ' - ' + song.title + '</li>');
+    $('#playlist-ul').prepend(songli);
+    $('#discovered-song-title').html(song.title);
+
     console.log(data);
+
   });
   
 

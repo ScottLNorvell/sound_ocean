@@ -26,7 +26,7 @@ body {
   /*overflow: hidden;*/
 }
 
-#side-menu {
+#playlist-menu {
   width: 200px;
   bottom: 10%;
   top: 10%;
@@ -63,11 +63,11 @@ body {
 
 }
 #feedback { font-size: 1.4em; }
-#side-menu-ul .ui-selecting { background: #FECA40; }
+/*#side-menu-ul .ui-selecting { background: #FECA40; }
 #side-menu-ul .ui-selected { background: #F39814; color: white; }
 #side-menu-ul {
   
-}
+}*/
 
 #current-user-ranking {
   position: absolute;

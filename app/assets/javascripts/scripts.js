@@ -1,5 +1,5 @@
 $(document).ready(function() {
-$('#side-menu').on('click', function() {
+$('#playlist-menu').on('click', function() {
     var $this = $(this);
     if($this.hasClass('active')) {
       animateMenuOut();
@@ -8,7 +8,7 @@ $('#side-menu').on('click', function() {
     }
   });
 
-  $('#side-menu').hover(function() {
+  $('#playlist-menu').hover(function() {
     animateMenuIn();
   }, function() {
     animateMenuOut();
@@ -20,7 +20,7 @@ $('#side-menu').on('click', function() {
     animateRankingOut();
   });
 
-  $( "#side-menu-ul" ).selectable();
+  // $( "#playlist-ul" ).selectable();
   // $( "#user_nav" ).dialog();
 
 // $(function() {
@@ -54,7 +54,7 @@ $('#side-menu').on('click', function() {
 var animation_duration = 700;
 
 function animateMenuIn() {
-  $side_menu = $('#side-menu');
+  $side_menu = $('#playlist-menu');
   $side_menu.stop().animate({
       right: '0px',
       opacity: 1
@@ -66,7 +66,7 @@ function animateMenuIn() {
   );
 }
 function animateMenuOut() {
-  $side_menu = $('#side-menu');
+  $side_menu = $('#playlist-menu');
   $side_menu.stop().animate({right: '-180px', opacity: 0.5}, animation_duration);
   $side_menu.removeClass('active');
 }
