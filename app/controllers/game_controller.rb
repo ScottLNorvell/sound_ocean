@@ -21,7 +21,8 @@ class GameController < ApplicationController
 					artist: track['user']['username'],
 					genre: track['genre'],
 					created_at: track['created_at'],
-					playback_count: track['playback_count']
+					playback_count: track['playback_count'],
+					url: track['permalink_url']
 				}
 		end
 		# binding.pry

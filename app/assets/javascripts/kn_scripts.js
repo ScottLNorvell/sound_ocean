@@ -1,4 +1,4 @@
-var target_objects = [], avatar, layer, text, songs = {};
+var target_objects = {}, avatar, layer, text, songs = {};
 
 var colors = ['yellow', 'blue', 'green', 'purple', 'orange'];
 
@@ -21,7 +21,10 @@ window.onload = function() {
 
   circ_points = randomLocations(limits, colors);
 
-  $('#new-genre').on('click', function() {
+  $('#genre-button').click(function(e) { //wrapper for genre onclick!
+    var genre = $('#genre-select').val();
+    console.log('fetching songs for genre = ' + genre);
+
     $.ajax({
       url: '/get_songs',
       dataType: 'json',
@@ -36,8 +39,8 @@ window.onload = function() {
       tracks = data.splice(ln - 5, ln);
       localStorage.setItem('tracks', JSON.stringify(data));
       loadSounds(tracks);
-    });
-  });
+    })
+  }); //wrapper for genre onclick!
 
 }
 
@@ -53,15 +56,23 @@ function loadSounds(track_data, reload) {
 
     SC.stream("/tracks/" + id, {
       volume: 0,
-      position: 5000
+      id: id,
+      loops: 5,
+      // onload: function() { console.log("loaded " + title)},
+      position: 500
     }, function(sound) {
         console.log(title);
+        sound.onPosition(550, function(position) { 
+          // possibly allow this to update scrollbar and 
+          console.log(id + ' reached position ' + position)
+        });
         songs[id] = sound;
         sound.play()
     });
 
   });
 
+  // update to take advantage of onPosition callback!
   SC.whenStreamingReady(function() {
     if (!reload) {
       drawGame(); 
@@ -80,9 +91,9 @@ function loadSounds(track_data, reload) {
 
 function redrawGame() {
   // clear/reset values
-  $.each(songs, function(i,song ) { song.stop(); } );
+  $.each(songs, function(i,song ) { song.destruct(); } );
   songs = {};
-  target_objects = [];
+  target_objects = {};
   KeyboardJS.clear('up');
   KeyboardJS.clear('down');
   KeyboardJS.clear('left');
@@ -132,9 +143,11 @@ function drawGame() {
     x: scr_width / 2,
     y: scr_height / 2,
     radius: 20,
-    fill: 'red',
-    stroke: 'black',
-    strokeWidth: 4,
+    fillRadialGradientStartPoint: 0,
+    fillRadialGradientStartRadius: 0,
+    fillRadialGradientEndPoint: 0,
+    fillRadialGradientEndRadius: 15,
+    fillRadialGradientColorStops: [0.5, '#90FEFB', 1, '#54FF9F'],
     velocity: velocity
   });
 
@@ -146,14 +159,15 @@ function drawGame() {
       x: pt.x,
       y: pt.y,
       radius: 20,
-      fill: pt.color,
-      stroke: 'black',
+      fillLinearGradientStartPoint: [-10, -10],
+      fillLinearGradientEndPoint: [15, 15],
+      fillLinearGradientColorStops: [0, 'pink', 1, 'purple'],
       opacity: 0.1,
-      strokeWidth: 4,
+      // strokeWidth: 4,
       name: track.id,
       track_data: track
     });
-    target_objects.push(circle);
+    target_objects[track.id] = circle;
     layer.add(circle);
   });
 
@@ -342,7 +356,7 @@ function checkCirclePosition() {
   
   if (pos.x < 0 || pos.x > window.innerWidth || pos.y < 0 || pos.y > window.innerHeight ) {
     if (!alerted) {
-      $('#game-container').html('')
+      $('#game-container').html('');
       alerted = true;
       out_of_bounds = true;
       redrawGame();
@@ -394,7 +408,8 @@ function discoverSong (track_data) {
       sc_track_id: track_data.id,
       title: track_data.title,
       genre: track_data.genre,
-      artist: track_data.artist
+      artist: track_data.artist,
+      url: track_data.url
     }
   }
   $.ajax({
@@ -404,7 +419,28 @@ function discoverSong (track_data) {
     data: params,
   })
   .done(function(data) {
+    // update user score, etc...
+    var song_data = data.song;
+    var track_id = song_data.sc_track_id;
+    var songObj = songs[track_id];
+    var targObj = target_objects[track_id];
+    delete target_objects[track_id];
+    targObj.remove();
+
+
+    layer.draw();
+    discovering_song = false;
+
+    $('#current-user-score').html(data.user_score);
+    var songli = $('<li>' + song_data.artist + ' - ' + song_data.title + '</li>');
+    $('#playlist-ul').prepend(songli);
+    $('#discovered-song-title').html(song_data.title);
+
+    // move this to onclick event from popup button
+    songObj.destruct();
+
     console.log(data);
+
   });
   
 
