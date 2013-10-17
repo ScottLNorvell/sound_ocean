@@ -1,28 +1,26 @@
-<div id="signup-modal" class="modal-box">
+<div id="signup-box" class="devise-box">
 
-<h2>Sign up</h2>
-<div id="sign-up">
+<h1>Sign up</h1>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
-    <div><%= f.label :username %><br />
-    <%= f.text_field :username, :autofocus => true %></div>
+    <div class="form-elements">
+    <%= f.text_field :username, :placeholder => "Username", :autofocus => true %></div>
 
     <% if f.object.email_required? %>
-    <div><%= f.label :email %><br />
-    <%= f.email_field :email, :autofocus => true %></div>
+    <div class="form-elements">
+    <%= f.email_field :email, :placeholder => "music@sea.com", :autofocus => true %></div>
     <% end %>
 
     <% if f.object.password_required? %>
-    <div><%= f.label :password %><br />
-    <%= f.password_field :password %></div>
+    <div class="form-elements">
+    <%= f.password_field :password, :placeholder => "Best password ever." %></div>
 
-    <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %></div>
+    <div class="form-elements">
+    <%= f.password_field :password_confirmation, :placeholder => "Remember it?" %></div>
     <% end %>
 
-    <div><%= f.submit "Sign up" %></div>
+    <div class="form-elements"><%= f.submit "Sign up", class: "button-to" %></div>
   <% end %>
 
   <%= render "devise/shared/links" %>
-</div>

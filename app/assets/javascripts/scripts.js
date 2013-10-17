@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
-  $('#side-menu').hover(function() {
+
+  $('#playlist-menu').hover(function() {
     animateMenuIn();
   }, function() {
     animateMenuOut();
@@ -11,6 +12,7 @@ $(document).ready(function() {
   }, function() {
     animateRankingOut();
   });
+
 
   $('#genre-picker').bPopup({
     transition: "slideDown",
@@ -40,13 +42,14 @@ $(document).ready(function() {
     opacity: "0.1"
   });
   });
+
 });
 
 
 var animation_duration = 700;
 
 function animateMenuIn() {
-  $side_menu = $('#side-menu');
+  $side_menu = $('#playlist-menu');
   $side_menu.stop().animate({
       right: '0px',
       opacity: 1
@@ -59,7 +62,7 @@ function animateMenuIn() {
 }
 
 function animateMenuOut() {
-  $side_menu = $('#side-menu');
+  $side_menu = $('#playlist-menu');
   $side_menu.stop().animate({right: '-180px', opacity: 0.5}, animation_duration);
   $side_menu.removeClass('active');
 }
