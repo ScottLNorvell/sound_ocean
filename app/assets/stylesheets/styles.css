@@ -79,3 +79,30 @@ body {
 .modal-box table { margin: 1em 0; border-collapse: collapse; width: 100%; }
 .modal-box table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
 
+#genre-picker {
+  z-index: 100;
+  background-color: #fff;
+  width: 400px;
+  height: 200px;
+
+  -webkit-border-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
+}
+
+#genre-select, #genre-button, option {
+  font-family: 'Raleway Dots', cursive;
+  font-size: 18px;
+}
+
+#genre-select {  
+  border: 0; 
+  font-family: 'Raleway Dots', cursive;
+  font-size:18px;
+  margin: 30px 0 0 30px;
+
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+
+
+}
+
