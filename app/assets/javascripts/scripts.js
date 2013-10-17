@@ -25,7 +25,7 @@ $('#side-menu').on('click', function() {
 
 $(function() {
     $( ".modal-box" ).dialog({
-      autoOpen: false,
+      // autoOpen: false,
       show: {
         effect: "blind",
         duration: 1000
