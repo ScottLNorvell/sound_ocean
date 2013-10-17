@@ -23,7 +23,6 @@ $('#side-menu').on('click', function() {
   $( "#side-menu-ul" ).selectable();
   // $( "#user_nav" ).dialog();
 
-$(function() {
     $( ".modal-box" ).dialog({
       // autoOpen: false,
       show: {
@@ -46,7 +45,6 @@ $(function() {
         e.preventDefault();      
       $( "#modal-test-div-id" ).dialog( "open" );
     });
-  });
 
 });
 
