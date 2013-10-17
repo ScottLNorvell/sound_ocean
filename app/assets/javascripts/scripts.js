@@ -83,6 +83,22 @@ function animateRankingIn() {
       $side_menu.addClass('active');
     }
   );
+
+// $( "#sign-up" ).dialog({
+//       autoOpen: false,
+//       show: {
+//         effect: "blind",
+//         duration: 1000
+//       },
+//       hide: {
+//         effect: "explode",
+//         duration: 1000
+//       }
+//  });
+ 
+    $( "#sign-up-path" ).click(function() {
+      $( "#sign-up" ).dialog( "open" );
+    });
 }
 function animateRankingOut() {
   $side_menu = $('#ranking');
