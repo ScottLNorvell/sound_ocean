@@ -18,12 +18,6 @@ body {
   filter: alpha(opacity=40);
   position: fixed;
   z-index: 1000;
-
-  
-
-  /*-webkit-box-shadow: -5px 0px 5px 0px rgba(0, 0, 0, .3);*/
-  /*box-shadow: -5px 0px 5px 0px rgba(0, 0, 0, .3);*/
-  /*overflow: hidden;*/
 }
 
 #side-menu {
@@ -60,13 +54,6 @@ body {
   text-rendering: optimizeLegibility;
   letter-spacing: 1px;
   white-space: nowrap;
-
-}
-#feedback { font-size: 1.4em; }
-#side-menu-ul .ui-selecting { background: #FECA40; }
-#side-menu-ul .ui-selected { background: #F39814; color: white; }
-#side-menu-ul {
-  
 }
 
 #current-user-ranking {
@@ -102,7 +89,8 @@ body {
 
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
-
-
 }
 
+#genre-picker, #current-song {
+ display:none; 
+}
