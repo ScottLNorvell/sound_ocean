@@ -21,21 +21,26 @@ window.onload = function() {
 
   circ_points = randomLocations(limits, colors);
 
-  $.ajax({
-    url: '/get_songs',
-    dataType: 'json',
-    data: { genre: genre }
-  })
-  .done(function(data) {
-    // load all the audio
-    // store locally
-    // pop last 5
-    // feed to loadSounds
-    var ln = data.length;
-    tracks = data.splice(ln - 5, ln);
-    localStorage.setItem('tracks', JSON.stringify(data));
-    loadSounds(tracks);
-  })
+  // $('#genre-button').click(function(e) { //wrapper for genre onclick!
+    var genre = $('#genre-select').val();
+    console.log('fetching songs for genre = ' + genre);
+    $.ajax({
+      url: '/get_songs',
+      dataType: 'json',
+      data: { genre: genre }
+    })
+    .done(function(data) {
+      // load all the audio
+      // store locally
+      // pop last 5
+      // feed to loadSounds
+      var ln = data.length;
+      tracks = data.splice(ln - 5, ln);
+      localStorage.setItem('tracks', JSON.stringify(data));
+      loadSounds(tracks);
+    })
+  // }); //wrapper for genre onclick!
+
 }
 
 function loadSounds(track_data, reload) {
@@ -50,15 +55,23 @@ function loadSounds(track_data, reload) {
 
     SC.stream("/tracks/" + id, {
       volume: 0,
-      position: 5000
+      id: id,
+      loops: 5,
+      // onload: function() { console.log("loaded " + title)},
+      position: 500
     }, function(sound) {
         console.log(title);
+        sound.onPosition(550, function(position) { 
+          // possibly allow this to update scrollbar and 
+          console.log(id + ' reached position ' + position)
+        });
         songs[id] = sound;
         sound.play()
     });
 
   });
 
+  // update to take advantage of onPosition callback!
   SC.whenStreamingReady(function() {
     if (!reload) {
       drawGame(); 
@@ -77,7 +90,7 @@ function loadSounds(track_data, reload) {
 
 function redrawGame() {
   // clear/reset values
-  $.each(songs, function(i,song ) { song.stop(); } );
+  $.each(songs, function(i,song ) { song.destruct(); } );
   songs = {};
   target_objects = [];
   KeyboardJS.clear('up');
@@ -129,9 +142,11 @@ function drawGame() {
     x: scr_width / 2,
     y: scr_height / 2,
     radius: 20,
-    fill: 'red',
-    stroke: 'black',
-    strokeWidth: 4,
+    fillRadialGradientStartPoint: 0,
+    fillRadialGradientStartRadius: 0,
+    fillRadialGradientEndPoint: 0,
+    fillRadialGradientEndRadius: 15,
+    fillRadialGradientColorStops: [0.5, '#90FEFB', 1, '#54FF9F'],
     velocity: velocity
   });
 
@@ -143,10 +158,11 @@ function drawGame() {
       x: pt.x,
       y: pt.y,
       radius: 20,
-      fill: pt.color,
-      stroke: 'black',
+      fillLinearGradientStartPoint: [-10, -10],
+      fillLinearGradientEndPoint: [15, 15],
+      fillLinearGradientColorStops: [0, 'pink', 1, 'purple'],
       opacity: 0.1,
-      strokeWidth: 4,
+      // strokeWidth: 4,
       name: track.id,
       track_data: track
     });
