@@ -21,21 +21,24 @@ window.onload = function() {
 
   circ_points = randomLocations(limits, colors);
 
-  $.ajax({
-    url: '/get_songs',
-    dataType: 'json',
-    data: { genre: genre }
-  })
-  .done(function(data) {
-    // load all the audio
-    // store locally
-    // pop last 5
-    // feed to loadSounds
-    var ln = data.length;
-    tracks = data.splice(ln - 5, ln);
-    localStorage.setItem('tracks', JSON.stringify(data));
-    loadSounds(tracks);
-  })
+  $('#new-genre').on('click', function() {
+    $.ajax({
+      url: '/get_songs',
+      dataType: 'json',
+      data: { genre: genre }
+    })
+    .done(function(data) {
+      // load all the audio
+      // store locally
+      // pop last 5
+      // feed to loadSounds
+      var ln = data.length;
+      tracks = data.splice(ln - 5, ln);
+      localStorage.setItem('tracks', JSON.stringify(data));
+      loadSounds(tracks);
+    });
+  });
+
 }
 
 function loadSounds(track_data, reload) {

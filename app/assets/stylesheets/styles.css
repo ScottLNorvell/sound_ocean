@@ -1,7 +1,95 @@
 body {
-  background-color: lightblue;
+  background-color: #4FC1DB;
+}
+/*=========================DEVISE STYLES========================================*/
+a, h1, body, p {
+  font-family: 'Raleway', sans-serif;
+  color: #4FC1DB;
+  font-size: 1em;
 }
 
+h1 {
+  padding: 20px;
+  font-size: 2em;
+}
+
+p {
+  padding: 25px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.devise-box {
+  display: inherit;
+  background-color: white;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  line-height: 1.65px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 20px;
+  
+  -webkit-border-radius: 20px;
+}
+
+.button-to {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1em;
+    padding: 10px 15px;
+    margin: 0px 20px 10px 20px;
+    background: #4FC1DB;
+    color: #FFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    border: none;
+}
+a.button-to {
+  display: inline-block;
+  padding: 20px 15px;
+}
+.button-to:hover {
+    background: #4BF2E4;
+    text-decoration: none;
+}
+
+.button-to #soundcloud-btn {
+  margin: 20px;
+  background: #F07030;
+}
+
+.form-elements {
+  padding: 20px 15px 0px 15px;
+} 
+
+input { 
+  border-radius: 5px;
+  padding: 10px 15px;
+  border: 2px solid #4FC1DB;
+}
+
+img {
+  margin: 30px
+}
+
+
+
+/*=========================END DEVISE STYLES========================================*/
 #user_nav {
   position: absolute;
   top: 0px;
