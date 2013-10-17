@@ -21,9 +21,10 @@ window.onload = function() {
 
   circ_points = randomLocations(limits, colors);
 
-  // $('#genre-button').click(function(e) { //wrapper for genre onclick!
+  $('#genre-button').click(function(e) { //wrapper for genre onclick!
     var genre = $('#genre-select').val();
     console.log('fetching songs for genre = ' + genre);
+
     $.ajax({
       url: '/get_songs',
       dataType: 'json',
@@ -39,7 +40,7 @@ window.onload = function() {
       localStorage.setItem('tracks', JSON.stringify(data));
       loadSounds(tracks);
     })
-  // }); //wrapper for genre onclick!
+  }); //wrapper for genre onclick!
 
 }
 

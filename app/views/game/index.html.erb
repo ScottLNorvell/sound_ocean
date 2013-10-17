@@ -1,13 +1,12 @@
 
 <div id="user_nav">
-  <span id="not-opacity">
-    Exploring as <strong><%= current_user.username %></strong>.
-    <%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
-    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <%= link_to "Home", root_path %>
-    <a href="#" id="new-genre" >New Genre</a>
-    <a href="#" id="test-song" >test song</a>
-  </span>
+	<span id="not-opacity">
+	  Exploring as <strong><%= current_user.username %></strong>.
+	  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+	  <%= link_to "Home", root_path %>
+	  <a href="#" id="new-genre" >New Genre</a>
+	  <a href="#" id="test-song" >test song</a>
+	</span>
 </div>
 
 <div id="game-container"></div>
