@@ -3,7 +3,7 @@
 	<h1>Welcome to the Sound Ocean</h1>
 		<div id="options">
 		<% if user_signed_in? %>
-			<div class="form-elements">Signed in as <%= current_user.email %>. Not you?<br /></div>
+			<div class="form-elements">Signed in as <%= current_user.username %>. Not you?<br /></div>
 			<br />
     		<div class="form-elements"><%= link_to "Swim out!", destroy_user_session_path, method: 'delete', class: "button-to" %><br /></div>
     		<br />
