@@ -62,10 +62,6 @@ body {
   right: 15px;
 }
 
-.modal-box { width: 500px; margin: 20px 0; }
-.modal-box table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-.modal-box table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-
 #genre-picker {
   z-index: 100;
   background-color: #fff;
@@ -92,5 +88,5 @@ body {
 }
 
 #genre-picker, #current-song {
- display:none; 
+ display:none;
 }
