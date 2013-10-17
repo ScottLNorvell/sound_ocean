@@ -22,9 +22,7 @@ $('#side-menu').on('click', function() {
 
   $( "#side-menu-ul" ).selectable();
   // $( "#user_nav" ).dialog();
-
-$(function() {
-    $( ".modal-box" ).dialog({
+  $( ".modal-box" ).dialog({
       // autoOpen: false,
       show: {
         effect: "blind",
@@ -34,20 +32,18 @@ $(function() {
         effect: "explode",
         duration: 1000
       }
-    });
- 
-    $( "#sign-up-link" ).click(function() {
-      $( "#signup-modal" ).dialog( "open" );
-    });
-    $( "#sign-in-link" ).click(function() {
-      $( "#signin-modal" ).dialog( "open" );
-    });
-    $( "#modal-link" ).click(function(e) {
-        e.preventDefault();      
-      $( "#modal-test-div-id" ).dialog( "open" );
-    });
   });
 
+  $( "#sign-up-link" ).click(function() {
+    $( "#signup-modal" ).dialog( "open" );
+  });
+  $( "#sign-in-link" ).click(function() {
+    $( "#signin-modal" ).dialog( "open" );
+  });
+  $( "#modal-link" ).click(function(e) {
+      e.preventDefault();      
+    $( "#modal-test-div-id" ).dialog( "open" );
+  });
 });
 
 
