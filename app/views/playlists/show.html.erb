@@ -6,8 +6,8 @@
 
 	<% @songs.each do |song| %>
 		<ul>
-			<li class="song-info"><a href="<%= song.url %>" target="_blank" ><h3><%= song.title %></a></h3></li><br />
-			<li class="song-info">by <%= song.artist %></li><br />
+			<li class="song-info"><h3><a href="<%= song.url %>" target="_blank" ><%= song.title[0..55] %></a></h3></li>
+			<li class="song-info">by <%= song.artist %></li>
 		</ul>
 	<% end %>
 	
