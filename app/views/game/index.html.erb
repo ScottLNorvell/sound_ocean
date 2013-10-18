@@ -1,10 +1,10 @@
  
 <div id="user_nav">
 	<span id="not-opacity">
-	  Exploring as <strong><%= current_user.username %></strong>.
-	  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-	  <%= link_to "Home", root_path %>
-	  <a href="#" id="new-genre" >New Genre</a>
+	  Exploring as <strong><%= current_user.username %></strong>. | 
+	  <%= link_to "Home", root_path %> |
+	  <a href="#" id="new-genre" >New Genre</a> |
+    <%= link_to "Logout", destroy_user_session_path, method: :delete %> |
 	  <a href="#" id="test-song" >test song</a>
 	</span>
 </div>
@@ -44,7 +44,9 @@
 <div id="current-song" class="modal"><span id="current-song-dislay"> 
    This is the song you are looking at!</span>
    <span id="discovered-song-title" >title</span>
+
   <input type="submit" id="add-button" class="button-to" value="Add to playlist!"/>
+  <button id="no-thanks">No Thanks</button>
 </div>
 
 <div id="arrow-keys-modal" class="modal">Use the arrow key's to move your avatar</div>

@@ -8,7 +8,7 @@
 			<br />
     		<div class="form-elements"><%= link_to "Get back in the ocean already!", game_path, class: "button-to" %><br /></div>
 			<br />
-    		<div class="form-elements"><%= link_to "Swim out!", destroy_user_session_path, method: 'delete', class: "button-to" %><br /></div>
+    		<div class="form-elements"><%= link_to "Swim out. Bye-bye.", destroy_user_session_path, method: 'delete', class: "button-to" %><br /></div>
     		
     	<% else %>	
     		<p><%= link_to image_tag("btn-connect-sc-l.png", :border => 0), user_omniauth_authorize_path(:soundcloud) %></p>
