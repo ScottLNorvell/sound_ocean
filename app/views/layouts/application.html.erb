@@ -13,6 +13,9 @@
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, id: "flash_#{name}", class: "error-div" %>
     <% end %>
+    <canvas class="world" id="world1"></canvas>
+    <canvas class="world" id="world2"></canvas>
+    <canvas class="world" id="world3"></canvas>
       
     <%= yield %>
 </div>

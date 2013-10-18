@@ -13,7 +13,7 @@ $(document).ready(function() {
     animateRankingOut();
   });
 
-  var modal_duration = 2000;
+  var modal_duration = 1000;
 
   $('#genre-picker').bPopup({
     transition: "slideDown",
@@ -22,61 +22,21 @@ $(document).ready(function() {
     escClose: false,
     onClose: function(){
 
-      // $('#arrow-keys-modal').bPopup({
-      //   transition: "slideDown",
-      //   opacity: "0",
-      //   speed: modal_duration,
-      //   modalClose: true,
-      //   position: ['10%','90%'],
-      //   positionStyle: 'fixed',
-      //   autoClose: 1000,
-      //   transitionClose: "slideIn",
-      //   onClose: function (){
-      //     $('#spacebar-modal').bPopup({
-      //     transition: "slideDown",
-      //     opacity: "0",
-      //     speed: modal_duration,
-      //     modalClose: true,
-      //     position: ['60%','90%'],
-      //     positionStyle: 'fixed',
-      //     autoClose: 1000,
-      //     transitionClose: "slideBack",
-      //       onClose: function (){
-      //         $('#navigate-modal').bPopup({
-      //         transition: "slideDown",
-      //         opacity: "0",
-      //         speed: modal_duration,
-      //         modalClose: true,
-      //         position: ['35%','90%'],
-      //         positionStyle: 'fixed',
-      //         autoClose: 1000,
-      //         transitionClose: "slideUp"
-      //         });
-      //       }
-      //     });
-      //   }
-      // });
+      $('#arrow-keys-modal').bPopup({
+        transition: "slideDown",
+        opacity: "0",
+        speed: modal_duration,
+        modalClose: true,
+        autoClose: 3500,
+        transitionClose: "slideIn",
+      });
     }
 });
-/*onClose: function (){
-              $('#spacebar-modal').bPopup({
-              transition: "slideDown",
-              opacity: "0",
-              speed: 5000,
-              modalClose: true,
-              position: ['60%','90%'],
-              positionStyle: 'fixed',
-              autoClose: 1000,
-              transitionClose: "slideBack"
-            }*/
+
   $('#genre-button').on('click', function() {
     $('#genre-picker').bPopup().close();
   });
-  /*$('element_to_pop_up').bPopup({
-    onClose: function(){
-      // doMagic 
-    }
-  });*/
+ 
  $('#new-genre').on('click', function(e) {
     e.preventDefault();
   
