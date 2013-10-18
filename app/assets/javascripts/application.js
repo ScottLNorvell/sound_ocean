@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-easing
 //= require bpopup
 //= require soundcloud_sdk
 //= require kinetic

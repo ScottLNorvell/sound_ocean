@@ -13,18 +13,21 @@ $(document).ready(function() {
     animateRankingOut();
   });
 
-  var modal_duration = 100;
-  var modal_autoclose = 100;
+  var modal_duration = 3000;
+  var modal_autoclose = 10;
+  var easing = "easeOutQuint";
 
   $('#genre-picker').bPopup({
     transition: "slideDown",
-    speed: 600,
+    easing: "easeInOutQuad",
+    speed: 1000,
     modalClose: false,
     escClose: false,
     onClose: function(){
 
       $('#arrow-keys-modal').bPopup({
         transition: "slideDown",
+        easing: easing,
         opacity: "0",
         speed: modal_duration,
         modalClose: true,
@@ -35,6 +38,7 @@ $(document).ready(function() {
         onClose: function (){
           $('#spacebar-modal').bPopup({
           transition: "slideDown",
+          easing: easing,
           opacity: "0",
           speed: modal_duration,
           modalClose: true,
@@ -45,6 +49,7 @@ $(document).ready(function() {
             onClose: function (){
               $('#navigate-modal').bPopup({
               transition: "slideDown",
+              easing: easing,
               opacity: "0",
               speed: modal_duration,
               modalClose: true,

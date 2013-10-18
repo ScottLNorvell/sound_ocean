@@ -8,8 +8,6 @@ a, h1, body, p {
   font-size: 1em;
 }
 
-
-
 h1 {
   padding: 20px;
   font-size: 2em;
@@ -173,7 +171,9 @@ input {
   z-index: 100;
   background-color: #fff;
   width: 400px;
-  height: 200px;
+  height: 100px;
+  text-align: center;
+  margin-top: 50px;
 
   -webkit-border-radius: 15px 15px 15px 15px;
   border-radius: 15px 15px 15px 15px;
@@ -183,7 +183,7 @@ input {
   border: 0; 
   font-family: 'Raleway', sans-serif;
   font-size:1em;
-  margin: 30px 0 0 30px;
+  margin-top: 40px;
 
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
@@ -191,6 +191,11 @@ input {
 
 #current-song-dislay, #discovered-song-title, #no-thanks {
   color: #fff;
+}
+
+#add-button, #no-thanks {
+  background: rgba(79,193,219,0);
+  cursor: pointer;
 }
 
 .modal {

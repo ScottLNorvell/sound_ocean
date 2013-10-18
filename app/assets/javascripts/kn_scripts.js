@@ -388,7 +388,8 @@ function checkCirclePosition() {
 
           $('#current-song').bPopup({
             transition: "slideUp",
-            speed: 400,
+            easing: "easeOutQuint",
+            speed: 700,
             opacity: "0",
             transitionClose: "slideDown",
             modalClose: false,
