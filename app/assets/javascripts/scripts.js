@@ -16,15 +16,26 @@ $(document).ready(function() {
 
   $('#genre-picker').bPopup({
     transition: "slideDown",
-    speed: 400,
+    speed: 600,
     modalClose: false,
-    escClose: false
+    escClose: false,
+    onClose: function(){
+          $('#arrow-keys-modal').bPopup({
+            transition: "slideDown",
+            opacity: "0.1",
+            speed: 2000
+          });
+        }
     });
     $('#genre-button').on('click', function() {
       console.log("genre= ", $('#genre-select').val());
       $('#genre-picker').bPopup().close();
   });
-    
+  /*$('element_to_pop_up').bPopup({
+    onClose: function(){
+      // doMagic 
+    }
+  });*/
  $('#new-genre').on('click', function(e) {
   e.preventDefault();
     $('#genre-picker').bPopup({
