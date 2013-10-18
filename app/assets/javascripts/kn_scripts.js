@@ -397,7 +397,8 @@ function checkCirclePosition() {
 
           $('#current-song').bPopup({
             transition: "slideUp",
-            speed: 400,
+            easing: "easeOutQuint",
+            speed: 700,
             opacity: "0",
             transitionClose: "slideDown",
             modalClose: false,
@@ -411,7 +412,10 @@ function checkCirclePosition() {
             discoverSong(current_track_data);
 
             discovering_song = false
-            $('#current-song').bPopup({transitionClose: "slideDown" }).close();
+            $('#current-song').bPopup({
+              transitionClose: "slideDown",
+              opacity: "0"
+            }).close();
           });
           
           $('#no-thanks').click(function(e) {
@@ -420,7 +424,10 @@ function checkCirclePosition() {
             destroySong(current_track_data.id);
 
             discovering_song = false;
-            $('#current-song').bPopup({transitionClose: "slideDown" }).close();
+            $('#current-song').bPopup({
+              transitionClose: "slideDown",
+              opacity: "0"
+              }).close();
           });
 
           // add to playlist

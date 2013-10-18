@@ -15,20 +15,25 @@ $(document).ready(function() {
 
   var modal_duration = 1000;
 
+  var easing = "easeOutQuint";
+
   $('#genre-picker').bPopup({
     transition: "slideDown",
-    speed: 600,
+    easing: "easeInOutQuad",
+    speed: 1000,
     modalClose: false,
     escClose: false,
     onClose: function(){
 
       $('#arrow-keys-modal').bPopup({
         transition: "slideDown",
+        easing: easing,
         opacity: "0",
         speed: modal_duration,
         modalClose: true,
         autoClose: 3500,
         transitionClose: "slideIn",
+
       });
     }
 });
@@ -98,6 +103,6 @@ function animateRankingIn() {
 
 function animateRankingOut() {
   $side_menu = $('#ranking');
-  $side_menu.stop().animate({left: '-170px', bottom: '-170px'}, animation_duration);
+  $side_menu.stop().animate({left: '-200px', bottom: '-200px'}, animation_duration);
   $side_menu.removeClass('active');
 }
