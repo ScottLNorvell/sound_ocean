@@ -1,7 +1,12 @@
 class GameController < ApplicationController
 
   def index
-    
+    if user_signed_in?
+    	playlist = current_user.playlists.first
+    	@songs = playlist.songs
+    else
+    	redirect_to root_path
+    end
   end
 
   def get_songs

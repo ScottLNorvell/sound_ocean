@@ -383,12 +383,16 @@ function checkCirclePosition() {
           discovering_song = true;
 
           $('#discovered-song-title').html(track_data.title);
+          
           popSong(track_data.id);
 
           $('#current-song').bPopup({
             transition: "slideUp",
             speed: 400,
-            opacity: "0"
+            opacity: "0",
+            transitionClose: "slideDown",
+            modalClose: false,
+            escClose: false,
           });
 
           $('#add-button').click(function(e) {
@@ -397,7 +401,7 @@ function checkCirclePosition() {
             discoverSong(current_track_data);
 
             discovering_song = false
-            $('#current-song').bPopup().close();
+            $('#current-song').bPopup({transitionClose: "slideDown" }).close();
           });
           
           $('#no-thanks').click(function(e) {
@@ -406,7 +410,7 @@ function checkCirclePosition() {
             destroySong(current_track_data.id);
 
             discovering_song = false;
-            $('#current-song').bPopup().close();
+            $('#current-song').bPopup({transitionClose: "slideDown" }).close();
           });
 
           // add to playlist
@@ -444,7 +448,11 @@ function popSong (track_id) {
     node: songNode,
     duration: .5,
     opacity: 0,
-    radius: 100
+    radius: 100,
+    onFinish: function() {
+      this.node.remove();
+      layer.draw();
+    }
   });
   popSong.play();
 }
@@ -491,17 +499,22 @@ function discoverSong (track_data) {
     // $('#discovered-song-title').html(song_data.title);
 
 
-    discovering_song = false;
+    // discovering_song = false;
 
     $('#current-user-score').html(data.user_score);
     var songli = $('<li>' + song_data.artist + ' - ' + song_data.title + '</li>');
     $('#playlist-ul').prepend(songli);
 
-    destroySong(track_id);
+    // destroySong(track_id);
 
 
 
-  });
+  })
+  .always(function() {
+    discovering_song = false;
+    destroySong(current_track_data.id);
+
+  })
   
 
   console.log(track_data);
