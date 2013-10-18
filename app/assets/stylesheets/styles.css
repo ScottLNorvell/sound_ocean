@@ -115,6 +115,11 @@ input {
   padding-top: 15px;
 }
 
+#logo {
+  float: left;
+  margin-top: -8px;
+}
+
 .aside {
   background-color: #ffffff;
   position: fixed;
@@ -189,20 +194,10 @@ input {
 .modal {
  display: none;
  color: #fff;
-<<<<<<< HEAD
 }
 
 #ocean-playlist {
   margin-bottom: 10px;
-}
-
-
-
-
-
-
-=======
- white-space: nowrap;
 }
 
 .modal p {
@@ -213,4 +208,15 @@ input {
   text-rendering: optimizeLegibility;
   letter-spacing: 1px;
 }
->>>>>>> 57331441152950e6dbb3fffec2e70400d18da650
+
+.sound_ocean {
+  margin: 30px;
+}
+
+.song-info {
+  padding: 15px;
+}
+
+a.song-info {
+  color: #4BF2E4;
+}

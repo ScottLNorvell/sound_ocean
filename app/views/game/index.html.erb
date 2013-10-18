@@ -1,5 +1,6 @@
  
 <div id="user_nav">
+  <span id="logo"><%= link_to image_tag("sound_ocean.png", :border => 0), class: "sound_ocean", id: "left-logo" %></span>
 	<span id="not-opacity">
 	  Exploring as <strong><%= current_user.username %></strong>. | 
 	  <%= link_to "Home", root_path %> |
@@ -18,6 +19,7 @@
     <li><a class="playlist-track" href="#">Cool Artist - Cool Track 123</a></li>
     <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1234</a></li>
   </ul>
+  <%= link_to "Ocean Jams", playlists_show_path, class: "button-to", id: "ocean-playlist" %>
 </div>
 <div class="aside" id="ranking">
   <ul class="aside-ul" id="ranking-ul">
@@ -43,11 +45,11 @@
 </div>
 
 <div id="current-song" class="modal"><span id="current-song-dislay"> 
-   This is the song you are looking at!</span>
-   <span id="discovered-song-title" >title</span>
+   You are listening to</span>
+   <span id="discovered-song-title" >title</span> by <span id="discovered-song-artist" >artist</span>
 
   <input type="submit" id="add-button" class="button-to" value="Add to playlist!"/>
-  <input type="submi" id="no-thanks" class="button-to" val="No Thanks"/>
+  <input type="submit" id="no-thanks" class="button-to" value="No Thanks"/>
 </div>
 
 <div id="arrow-keys-modal" class="modal"><p>Use the arrow key's to move your avatar</p></div>
