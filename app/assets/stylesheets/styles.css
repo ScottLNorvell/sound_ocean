@@ -189,6 +189,7 @@ input {
 .modal {
  display: none;
  color: #fff;
+<<<<<<< HEAD
 }
 
 #ocean-playlist {
@@ -200,3 +201,16 @@ input {
 
 
 
+=======
+ white-space: nowrap;
+}
+
+.modal p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.2em;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: 1px;
+}
+>>>>>>> 57331441152950e6dbb3fffec2e70400d18da650

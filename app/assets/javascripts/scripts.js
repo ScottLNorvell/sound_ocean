@@ -13,6 +13,7 @@ $(document).ready(function() {
     animateRankingOut();
   });
 
+  var modal_duration = 2000;
 
   $('#genre-picker').bPopup({
     transition: "slideDown",
@@ -20,15 +21,54 @@ $(document).ready(function() {
     modalClose: false,
     escClose: false,
     onClose: function(){
-          $('#arrow-keys-modal').bPopup({
-            transition: "slideDown",
-            opacity: "0.1",
-            speed: 2000,
-            modalClose: true
+
+      $('#arrow-keys-modal').bPopup({
+        transition: "slideDown",
+        opacity: "0",
+        speed: modal_duration,
+        modalClose: true,
+        position: ['10%','90%'],
+        positionStyle: 'fixed',
+        autoClose: 1000,
+        transitionClose: "slideIn",
+        onClose: function (){
+          $('#spacebar-modal').bPopup({
+          transition: "slideDown",
+          opacity: "0",
+          speed: modal_duration,
+          modalClose: true,
+          position: ['60%','90%'],
+          positionStyle: 'fixed',
+          autoClose: 1000,
+          transitionClose: "slideBack",
+            onClose: function (){
+              $('#navigate-modal').bPopup({
+              transition: "slideDown",
+              opacity: "0",
+              speed: modal_duration,
+              modalClose: true,
+              position: ['35%','90%'],
+              positionStyle: 'fixed',
+              autoClose: 1000,
+              transitionClose: "slideUp"
+              });
+            }
           });
         }
-    });
-
+      });
+    }
+});
+/*onClose: function (){
+              $('#spacebar-modal').bPopup({
+              transition: "slideDown",
+              opacity: "0",
+              speed: 5000,
+              modalClose: true,
+              position: ['60%','90%'],
+              positionStyle: 'fixed',
+              autoClose: 1000,
+              transitionClose: "slideBack"
+            }*/
   $('#genre-button').on('click', function() {
     $('#genre-picker').bPopup().close();
   });
@@ -42,7 +82,8 @@ $(document).ready(function() {
   
     $('#genre-picker').bPopup({
       transition: "slideDown",
-      speed: 400
+      speed: 400,
+      opacity: "0"
     });
   
   });
@@ -52,8 +93,8 @@ $(document).ready(function() {
     e.preventDefault();
     $('#current-song').bPopup({
       transition: "slideUp",
-      opacity: "0.1",
-      speed: 400
+      opacity: "0",
+      speed: 400,
     });
   });
 
