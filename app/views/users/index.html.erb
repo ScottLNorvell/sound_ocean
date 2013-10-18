@@ -1,18 +1,21 @@
 <div id="welcome-box" class="devise-box">
 
 	<h1>Welcome to the Sound Ocean</h1>
-		<div id="options">
+   
+    <div id="options">
 		<% if user_signed_in? %>
 			<div class="form-elements">Signed in as <%= current_user.username %>. Not you?<br /></div>
 			<br />
-    		<div class="form-elements"><%= link_to "Swim out!", destroy_user_session_path, method: 'delete', class: "button-to" %><br /></div>
-    		<br />
-    		<div class="form-elements"><%= link_to "Just keep swimmimg", game_path, class: "button-to" %><br /></div>
+    		<div class="form-elements"><%= link_to "Get back in the ocean already!", game_path, class: "button-to" %><br /></div>
+			<br />
+    		<div class="form-elements"><%= link_to "Swim out. Bye-bye.", destroy_user_session_path, method: 'delete', class: "button-to" %><br /></div>
+    		
     	<% else %>	
+    		<p><%= link_to image_tag("btn-connect-sc-l.png", :border => 0), user_omniauth_authorize_path(:soundcloud) %></p>
 			<p><%= link_to "First time at sea?", new_user_registration_path, class: "button-to" %></p>
 			<p><%= link_to "Dive in!", new_user_session_path, class: "button-to" %></p>
 			
-			<p><%= link_to image_tag("btn-connect-sc-l.png", :border => 0), user_omniauth_authorize_path(:soundcloud) %></p>
+			
 		</div>
 		<% end %>
 

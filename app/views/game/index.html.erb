@@ -1,16 +1,15 @@
-
+ 
 <div id="user_nav">
 	<span id="not-opacity">
-	  Exploring as <strong><%= current_user.username %></strong>.
-	  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-	  <%= link_to "Home", root_path %>
-	  <a href="#" id="new-genre" >New Genre</a>
+	  Exploring as <strong><%= current_user.username %></strong>. | 
+	  <%= link_to "Home", root_path %> |
+	  <a href="#" id="new-genre" >New Genre</a> |
+    <%= link_to "Logout", destroy_user_session_path, method: :delete %> |
 	  <a href="#" id="test-song" >test song</a>
 	</span>
 </div>
 
 <div id="game-container"></div>
-
 
 <div class="aside" id="playlist-menu">
   <ul class="aside-ul" id="playlist-ul">
@@ -39,12 +38,13 @@
     <option value="indie">indie</option>
     <option value="electronic">electronic</option>
   </select>
-  <button id="genre-button" >Pick a genre</button>
+  <input type="submit" id="genre-button" class="button-to" value="Pick a genre"/>
 </div>
 
-<div id="current-song" class=""> 
-   This is the song you are looking at!
+<div id="current-song"><span id="current-song-dislay"> 
+   This is the song you are looking at!</span>
    <span id="discovered-song-title" >title</span>
-  <button id="add-button" >add to playlist</button>
+
+  <input type="submit" id="add-button" class="button-to" value="Add to playlist!"/>
   <button id="no-thanks">No Thanks</button>
 </div>
