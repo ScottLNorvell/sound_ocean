@@ -15,11 +15,20 @@ var circ_points, tracks, scr_width, scr_height,
 
 var genre = 'folk'; //prompt('genre please');
 
+var wave1, wave2, wave3;
+
 window.onload = function() {
 
   scr_width = window.innerWidth;
   scr_height = window.innerHeight;
   limits = getLimits(scr_height, scr_width);
+
+  wave1 = new Wave();
+  wave2 = new Wave();
+  wave3 = new Wave();
+  wave1.Initialize( 'world1', .07 );
+  wave2.Initialize( 'world2', .35 );
+  wave3.Initialize( 'world3', .78 );
 
   circ_points = randomLocations(limits, colors);
 
@@ -441,6 +450,23 @@ function checkCirclePosition() {
     } 
   }
   layer.draw();
+  twitchTheWave();
+  
+}
+
+function twitchTheWave() {
+  // console.log('twitching')
+  var pos = avatar.getAbsolutePosition();
+  var wave1_y = scr_height * .07
+  var wave2_y = scr_height * .35
+  var wave3_y = scr_height * .78
+  if (pos.y >= wave1_y - 2 && pos.y <= wave1_y + 2 ) {
+    wave1.makeImpulse(pos.x, 1)
+  } else if (pos.y >= wave2_y - 2 && pos.y <= wave2_y + 2 ) {
+    wave2.makeImpulse(pos.x, 1)
+  } else if (pos.y >= wave3_y - 2 && pos.y <= wave3_y + 2 ) {
+    wave3.makeImpulse(pos.x, 1)
+  }
 }
 
 function popSong (track_id) {

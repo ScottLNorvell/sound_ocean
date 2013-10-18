@@ -1,6 +1,27 @@
 body {
-  background-color: #4FC1DB;
+  background-color: transparent;
 }
+/*=========================WAVE STYLES========================================*/
+
+#world1 {
+  z-index: -100;
+  
+}
+
+.world {
+  z-index: -100;
+  top: 0;
+  left: 0;
+  position: absolute;
+
+}
+
+#game-container {
+  z-index: 1000;
+  top: 0;
+  left: 0;
+}
+
 /*=========================DEVISE STYLES========================================*/
 a, h1, body, p {
   font-family: 'Raleway', sans-serif;
