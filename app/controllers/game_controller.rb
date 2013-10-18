@@ -3,7 +3,16 @@ class GameController < ApplicationController
   def index
     if user_signed_in?
     	playlist = current_user.playlists.first
-    	@songs = playlist.songs
+
+    	if playlist 
+    		@songs = playlist.songs
+    	else
+    		@songs = false
+    	end
+
+    @top_users = User.order('score desc limit 5')
+
+
     else
     	redirect_to root_path
     end

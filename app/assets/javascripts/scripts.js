@@ -22,40 +22,40 @@ $(document).ready(function() {
     escClose: false,
     onClose: function(){
 
-      $('#arrow-keys-modal').bPopup({
-        transition: "slideDown",
-        opacity: "0",
-        speed: modal_duration,
-        modalClose: true,
-        position: ['10%','90%'],
-        positionStyle: 'fixed',
-        autoClose: 1000,
-        transitionClose: "slideIn",
-        onClose: function (){
-          $('#spacebar-modal').bPopup({
-          transition: "slideDown",
-          opacity: "0",
-          speed: modal_duration,
-          modalClose: true,
-          position: ['60%','90%'],
-          positionStyle: 'fixed',
-          autoClose: 1000,
-          transitionClose: "slideBack",
-            onClose: function (){
-              $('#navigate-modal').bPopup({
-              transition: "slideDown",
-              opacity: "0",
-              speed: modal_duration,
-              modalClose: true,
-              position: ['35%','90%'],
-              positionStyle: 'fixed',
-              autoClose: 1000,
-              transitionClose: "slideUp"
-              });
-            }
-          });
-        }
-      });
+      // $('#arrow-keys-modal').bPopup({
+      //   transition: "slideDown",
+      //   opacity: "0",
+      //   speed: modal_duration,
+      //   modalClose: true,
+      //   position: ['10%','90%'],
+      //   positionStyle: 'fixed',
+      //   autoClose: 1000,
+      //   transitionClose: "slideIn",
+      //   onClose: function (){
+      //     $('#spacebar-modal').bPopup({
+      //     transition: "slideDown",
+      //     opacity: "0",
+      //     speed: modal_duration,
+      //     modalClose: true,
+      //     position: ['60%','90%'],
+      //     positionStyle: 'fixed',
+      //     autoClose: 1000,
+      //     transitionClose: "slideBack",
+      //       onClose: function (){
+      //         $('#navigate-modal').bPopup({
+      //         transition: "slideDown",
+      //         opacity: "0",
+      //         speed: modal_duration,
+      //         modalClose: true,
+      //         position: ['35%','90%'],
+      //         positionStyle: 'fixed',
+      //         autoClose: 1000,
+      //         transitionClose: "slideUp"
+      //         });
+      //       }
+      //     });
+      //   }
+      // });
     }
 });
 /*onClose: function (){

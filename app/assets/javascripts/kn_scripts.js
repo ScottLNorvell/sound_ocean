@@ -392,7 +392,8 @@ function checkCirclePosition() {
             opacity: "0",
             transitionClose: "slideDown",
             modalClose: false,
-            escClose: false,
+            escClose: false
+            // zindex: 99999
           });
 
           $('#add-button').click(function(e) {
@@ -502,7 +503,12 @@ function discoverSong (track_data) {
     // discovering_song = false;
 
     $('#current-user-score').html(data.user_score);
-    var songli = $('<li>' + song_data.artist + ' - ' + song_data.title + '</li>');
+    var songli = $('<li>');
+    var songlink = $('<a>').attr({
+      href: song_data.url,
+      target: '_blank'
+    }).html(song_data.artist + ' - ' + song_data.title);
+    songli.append(songlink);
     $('#playlist-ul').prepend(songli);
 
     // destroySong(track_id);

@@ -5,7 +5,7 @@
 	  <%= link_to "Home", root_path %> |
 	  <a href="#" id="new-genre" >New Genre</a> |
     <%= link_to "Logout", destroy_user_session_path, method: :delete %> |
-	  <a href="#" id="test-song" >test song</a>
+	  
 	</span>
 </div>
 
@@ -13,10 +13,14 @@
 
 <div class="aside" id="playlist-menu">
   <ul class="aside-ul" id="playlist-ul">
-    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1</a></li>
-    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 12</a></li>
-    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 123</a></li>
-    <li><a class="playlist-track" href="#">Cool Artist - Cool Track 1234</a></li>
+    <% if @songs %>
+      <% @songs.each do |song| %>
+        <li><a class="playlist-track" href="<%= song.url %>" target="_blank"><%= song.artist %> - <%= song.title %></a></li>
+      <% end %>
+    <% else %>
+      <li>No Songs! Swim around and discover some!</li>
+    <% end %>
+    
   </ul>
 </div>
 <div class="aside" id="ranking">
@@ -25,10 +29,11 @@
   	Current Score
     <span id="current-user-score">8</span>
     <li id="score-title">Top Discoverers</li>
-    <li>1: Scott -  1</li>
-    <li>2: David -  2</li>
-    <li>3: Francesca -  3</li>
-    <li>4: User - 4</li>
+    <% if @top_users %>
+      <% @top_users.each do |user| %>
+        <li><%= user.username %> - <%= user.score %></li>
+      <% end %>
+    <% end %>
   </ul>
 </div>
 <div id="genre-picker" class="modal">
@@ -43,11 +48,11 @@
 </div>
 
 <div id="current-song" class="modal"><span id="current-song-dislay"> 
-   This is the song you are looking at!</span>
+   This is the song you are listening to!</span>
    <span id="discovered-song-title" >title</span>
 
   <input type="submit" id="add-button" class="button-to" value="Add to playlist!"/>
-  <input type="submi" id="no-thanks" class="button-to" val="No Thanks"/>
+  <input type="submit" id="no-thanks" class="button-to" value="No Thanks"/>
 </div>
 
 <div id="arrow-keys-modal" class="modal"><p>Use the arrow key's to move your avatar</p></div>
