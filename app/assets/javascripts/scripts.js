@@ -23,7 +23,8 @@ $(document).ready(function() {
           $('#arrow-keys-modal').bPopup({
             transition: "slideDown",
             opacity: "0.1",
-            speed: 2000
+            speed: 2000,
+            modalClose: true
           });
         }
     });
