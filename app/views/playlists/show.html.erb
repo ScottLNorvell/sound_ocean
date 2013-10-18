@@ -2,13 +2,13 @@
 <div class="devise-box">
 <h1>Your Ocean Sounds Playlists</h1>
 
-		<% @songs.each do |song| %>
-			<ul>
-				<li><%= song.title %></li>
-				<li><%= song.artist %></li>
-				<li><%= song.url %></li>
-			</ul>
-		<% end %>	
-		
+	<% @songs.each do |song| %>
+		<ul>
+			<li><%= song.title %></li>
+			<li><%= song.artist %></li>
+			<li><%= song.url %></li>
+		</ul>
+	<% end %>
+	<%= link_to "Get back in the ocean already!", game_path, class: "button-to" %>
 
 </div>
