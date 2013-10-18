@@ -21,27 +21,32 @@ $(document).ready(function() {
     modalClose: false,
     escClose: false
     });
-    $('#genre-button').on('click', function() {
-      console.log("genre= ", $('#genre-select').val());
-      $('#genre-picker').bPopup().close();
+
+  $('#genre-button').on('click', function() {
+    $('#genre-picker').bPopup().close();
   });
     
  $('#new-genre').on('click', function(e) {
-  e.preventDefault();
+    e.preventDefault();
+  
     $('#genre-picker').bPopup({
       transition: "slideDown",
       speed: 400,
       opacity: "0.4"
     });
+  
   });
+
  $('#test-song').on('click', function(e) {
-  e.preventDefault();
-  $('#current-song').bPopup({
-    transition: "slideUp",
-    speed: 400,
-    opacity: "0.1"
+    e.preventDefault();
+    $('#current-song').bPopup({
+      transition: "slideUp",
+      speed: 400,
+      opacity: "0.1"
+    });
   });
-  });
+
+  
 
 });
 

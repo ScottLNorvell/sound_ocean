@@ -8,6 +8,8 @@ var discovering_song = false;
 // keep track of keys pressed
 var pressed = {};
 
+var current_track_data = {};
+
 var circ_points, tracks, scr_width, scr_height,
     velocity = 2;
 
@@ -22,8 +24,10 @@ window.onload = function() {
   circ_points = randomLocations(limits, colors);
 
   $('#genre-button').click(function(e) { //wrapper for genre onclick!
+
     var genre = $('#genre-select').val();
     console.log('fetching songs for genre = ' + genre);
+    resetGameParams();
 
     $.ajax({
       url: '/get_songs',
@@ -91,16 +95,7 @@ function loadSounds(track_data, reload) {
 
 function redrawGame() {
   // clear/reset values
-  $.each(songs, function(i,song ) { song.destruct(); } );
-  songs = {};
-  target_objects = {};
-  KeyboardJS.clear('up');
-  KeyboardJS.clear('down');
-  KeyboardJS.clear('left');
-  KeyboardJS.clear('right');
-  KeyboardJS.clear('space');
-  alerted = false;
-
+  resetGameParams();
 
   // re-check window dimensions
   scr_width = window.innerWidth;
@@ -120,9 +115,19 @@ function redrawGame() {
   localStorage.setItem('tracks', JSON.stringify(data));
   loadSounds(tracks, true);
 
+}
 
-
-  // drawGame();
+function resetGameParams() {
+  $('#game-container').html('');
+  $.each(songs, function(i,song ) { song.destruct(); } );
+  songs = {};
+  target_objects = {};
+  KeyboardJS.clear('up');
+  KeyboardJS.clear('down');
+  KeyboardJS.clear('left');
+  KeyboardJS.clear('right');
+  KeyboardJS.clear('space');
+  alerted = false;
 }
 
 function drawGame() {
@@ -158,7 +163,7 @@ function drawGame() {
     var circle = new Kinetic.Circle({
       x: pt.x,
       y: pt.y,
-      radius: 20,
+      radius: 10,
       fillLinearGradientStartPoint: [-10, -10],
       fillLinearGradientEndPoint: [15, 15],
       fillLinearGradientColorStops: [0, 'pink', 1, 'purple'],
@@ -356,7 +361,7 @@ function checkCirclePosition() {
   
   if (pos.x < 0 || pos.x > window.innerWidth || pos.y < 0 || pos.y > window.innerHeight ) {
     if (!alerted) {
-      $('#game-container').html('');
+      
       alerted = true;
       out_of_bounds = true;
       redrawGame();
@@ -373,10 +378,39 @@ function checkCirclePosition() {
     if (distance != false) {
       if (distance <= 40) {
         if (!discovering_song) {
+          var track_data = targObj.getAttr('track_data');
+          current_track_data = track_data;
           discovering_song = true;
-           
+
+          $('#discovered-song-title').html(track_data.title);
+          popSong(track_data.id);
+
+          $('#current-song').bPopup({
+            transition: "slideUp",
+            speed: 400,
+            opacity: "0"
+          });
+
+          $('#add-button').click(function(e) {
+            console.log("add button for ", current_track_data);
+
+            discoverSong(current_track_data);
+
+            discovering_song = false
+            $('#current-song').bPopup().close();
+          });
+          
+          $('#no-thanks').click(function(e) {
+
+            console.log("no-thanks button for ", current_track_data);
+            destroySong(current_track_data.id);
+
+            discovering_song = false;
+            $('#current-song').bPopup().close();
+          });
+
           // add to playlist
-          discoverSong(targObj.getAttr('track_data'))
+          // discoverSong(track_data)
           
         }
 
@@ -387,9 +421,12 @@ function checkCirclePosition() {
       } else if (distance <= 200) {
         // var volume_linear = -5/8 * distance + 125;
         // discovering_song = false;
-        var volume_parabolic = Math.pow((distance - 200),2) / 256; // THANKS DAD!
-        volume = volume_parabolic;
-        targObj.setOpacity(30/distance);
+        var volume = Math.pow((distance - 200),2) / 256; // THANKS DAD!
+        // volume = volume_parabolic;
+        var opacity = (-9/1600) * distance + 49/40;
+        var radius = (-1/8) * distance + 35;
+        targObj.setOpacity(opacity);
+        targObj.setRadius(radius);
         targSong.setVolume(volume);
         text.setText('Circle Position = {x: ' + Math.round(pos.x) + ', y: ' + Math.round(pos.y) + "} Distance = " + Math.round(distance) + " Volume = " + Math.round(volume));
       } else {
@@ -401,8 +438,33 @@ function checkCirclePosition() {
   layer.draw();
 }
 
+function popSong (track_id) {
+  var songNode = target_objects[track_id];
+  var popSong = new Kinetic.Tween({
+    node: songNode,
+    duration: .5,
+    opacity: 0,
+    radius: 100
+  });
+  popSong.play();
+}
+
+function destroySong (track_id) {
+  var songObj = songs[track_id];
+  var targObj = target_objects[track_id];
+  // delete songs[track_id]
+  // targObj.remove();
+
+  delete target_objects[track_id];
+  songObj.destruct();
+  layer.draw();
+
+} 
+
 function discoverSong (track_data) {
   // add song to db
+
+  // after user clicks add to playlist
   var params = {
     song: {
       sc_track_id: track_data.id,
@@ -424,22 +486,20 @@ function discoverSong (track_data) {
     var track_id = song_data.sc_track_id;
     var songObj = songs[track_id];
     var targObj = target_objects[track_id];
-    delete target_objects[track_id];
-    targObj.remove();
+
+    // happens right after touching song!    
+    // $('#discovered-song-title').html(song_data.title);
 
 
-    layer.draw();
     discovering_song = false;
 
     $('#current-user-score').html(data.user_score);
     var songli = $('<li>' + song_data.artist + ' - ' + song_data.title + '</li>');
     $('#playlist-ul').prepend(songli);
-    $('#discovered-song-title').html(song_data.title);
 
-    // move this to onclick event from popup button
-    songObj.destruct();
+    destroySong(track_id);
 
-    console.log(data);
+
 
   });
   
