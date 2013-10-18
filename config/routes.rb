@@ -1,5 +1,7 @@
 SoundOcean::Application.routes.draw do
 
+  get "playlists/show"
+
   get "songs/discover"
 
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
