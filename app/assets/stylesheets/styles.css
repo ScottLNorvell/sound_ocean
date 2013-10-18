@@ -1,6 +1,14 @@
 body {
   background-color: transparent;
 }
+
+#sc-logo {
+  position: fixed;
+  bottom: 4%;
+  left: 44%;
+  height: 22px;
+  z-index: 1000;
+}
 /*=========================WAVE STYLES========================================*/
 
 #world1 {
@@ -220,7 +228,7 @@ input {
 }
 
 #add-button, #no-thanks {
-  background: rgba(79,193,219,0);
+  background: rgba(79,193,219,0.8);
   cursor: pointer;
 }
 
