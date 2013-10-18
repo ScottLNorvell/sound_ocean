@@ -1,15 +1,15 @@
 
-<div class="devise-box">
+<div class="devise-box" id="playlist-box">
 <%= link_to image_tag("sound_ocean.png", :border => 0), class: "sound_ocean" %>	
 <h1>Your Ocean Sounds Playlists</h1><br />
+<%= link_to "Get back in the ocean already!", game_path, class: "button-to", id: "ocean-playlist" %>
 
 	<% @songs.each do |song| %>
 		<ul>
-			<li class="song-info"><%= song.title %></li><br />
-			<li class="song-info"><%= song.artist %></li><br />
-			<li class="song-info"><a href="<%= song.url %>">Listen at the source.</a></li><br />
+			<li class="song-info"><a href="<%= song.url %>" target="_blank" ><h3><%= song.title %></a></h3></li><br />
+			<li class="song-info">by <%= song.artist %></li><br />
 		</ul>
 	<% end %>
-	<%= link_to "Get back in the ocean already!", game_path, class: "button-to", id: "ocean-playlist" %>
+	
 
 </div>

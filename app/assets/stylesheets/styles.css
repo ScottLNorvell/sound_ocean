@@ -34,6 +34,10 @@ h1 {
   font-size: 2em;
 }
 
+h3 {
+  text-decoration: underline;
+}
+
 p {
   padding: 25px;
 }
@@ -143,6 +147,8 @@ input {
   background-color: #ffffff;
   position: fixed;
   z-index: 1000;
+  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 #playlist-menu {
@@ -252,4 +258,8 @@ input {
 
 a.song-info {
   color: #4BF2E4;
+}
+
+#playlist-box {
+  overflow: scroll;
 }
