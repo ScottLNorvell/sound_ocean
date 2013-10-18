@@ -13,7 +13,8 @@ $(document).ready(function() {
     animateRankingOut();
   });
 
-  var modal_duration = 2000;
+  var modal_duration = 100;
+  var modal_autoclose = 100;
 
   $('#genre-picker').bPopup({
     transition: "slideDown",
@@ -29,7 +30,7 @@ $(document).ready(function() {
         modalClose: true,
         position: ['10%','90%'],
         positionStyle: 'fixed',
-        autoClose: 1000,
+        autoClose: modal_autoclose,
         transitionClose: "slideIn",
         onClose: function (){
           $('#spacebar-modal').bPopup({
@@ -39,7 +40,7 @@ $(document).ready(function() {
           modalClose: true,
           position: ['60%','90%'],
           positionStyle: 'fixed',
-          autoClose: 1000,
+          autoClose: modal_autoclose,
           transitionClose: "slideBack",
             onClose: function (){
               $('#navigate-modal').bPopup({
@@ -49,7 +50,7 @@ $(document).ready(function() {
               modalClose: true,
               position: ['35%','90%'],
               positionStyle: 'fixed',
-              autoClose: 1000,
+              autoClose: modal_autoclose,
               transitionClose: "slideUp"
               });
             }
@@ -138,6 +139,6 @@ function animateRankingIn() {
 
 function animateRankingOut() {
   $side_menu = $('#ranking');
-  $side_menu.stop().animate({left: '-170px', bottom: '-170px'}, animation_duration);
+  $side_menu.stop().animate({left: '-200px', bottom: '-200px'}, animation_duration);
   $side_menu.removeClass('active');
 }

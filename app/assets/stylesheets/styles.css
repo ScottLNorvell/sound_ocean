@@ -136,13 +136,26 @@ input {
 }
 
 #ranking {
-  width: 200px;
-  height: 200px;
-  left: -170px;
-  bottom: -170px;
+  width: 250px;
+  height: 250px;
+  left: -200px;
+  bottom: -200px;
   -webkit-border-radius: 0px 15px 0px 0px;
   border-radius: 0px 15px 0px 0px;
   padding-top: 0px;
+}
+
+#ranking-ul {
+  margin-top: 10px;
+  line-height: 28px;
+  font-size: 1em;
+}
+
+#current-user-score {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1em; 
 }
 
 .aside-ul {
@@ -154,12 +167,6 @@ input {
   text-rendering: optimizeLegibility;
   letter-spacing: 1px;
   white-space: nowrap;
-}
-
-#current-user-ranking {
-  position: absolute;
-  top: 10px;
-  right: 15px;
 }
 
 #genre-picker {
