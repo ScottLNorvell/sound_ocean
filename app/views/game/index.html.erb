@@ -28,7 +28,7 @@
   <%= link_to "Ocean Jams", playlists_show_path, class: "button-to", id: "ocean-playlist" %>
 </div>
 <div class="aside" id="ranking">
-  <span id="current-user-score">Current Score&nbsp;&nbsp; 1010</span>
+  <span id="current-user-score">Current Score&nbsp;&nbsp; <%= current_user.score.to_i %></span>
   <ul class="aside-ul" id="ranking-ul">
     <li id="score-title">Top Discoverers</li>
     <% if @top_users %>
@@ -44,12 +44,17 @@
     <option value="rock">Rock</option>
     <option value="pop">Pop</option>
     <option value="indie">Indie</option>
-    <option value="indie">Classical</option>
-    <option value="indie">Hip Hop</option>
-    <option value="indie">Trance</option>
-    <option value="indie">Acoustic</option>
-    <option value="indie">Jazz</option>
+    <option value="classical">Classical</option>
+    <option value="hip-hop">Hip Hop</option>
+    <option value="trance">Trance</option>
+    <option value="acoustic">Acoustic</option>
+    <option value="jazz">Jazz</option>
+    <option value="rap">Rap</option>
+    <option value="alternative">Alternative</option>
+    <option value="country">Country</option>
     <option value="electronic">Electronic</option>
+    <option value="dubstep">Dubstep</option>
+    <option value="heavy metal">Heavy Metal</option>
   </select>
   <input type="submit" id="genre-button" class="button-to" value="Pick a genre"/>
 </div>

@@ -392,6 +392,7 @@ function checkCirclePosition() {
           discovering_song = true;
 
           $('#discovered-song-title').html(track_data.title);
+          $('#discovered-song-artist').html(track_data.artist);
           
           popSong(track_data.id);
 
