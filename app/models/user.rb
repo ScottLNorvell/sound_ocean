@@ -56,3 +56,6 @@ class User < ActiveRecord::Base
 	end
 
 end
+
+# Auth Hash
+#<OmniAuth::AuthHash credentials=#<OmniAuth::AuthHash expires=false token="1-55044-49384150-752cc24e4466dbd"> extra=#<OmniAuth::AuthHash raw_info=#<OmniAuth::AuthHash avatar_url="https://i1.sndcdn.com/avatars-000055067797-6q8msf-large.jpg?3eddc42" followers_count=1 followings_count=88 id=49384150 kind="user" online=false permalink="scoman613" permalink_url="http://soundcloud.com/scoman613" plan="Free" playlist_count=0 primary_email_confirmed=false private_playlists_count=0 private_tracks_count=0 public_favorites_count=0 quota=#<OmniAuth::AuthHash unlimited_upload_quota=false upload_seconds_left=7200 upload_seconds_used=0> track_count=0 upload_seconds_left=7200 uri="https://api.soundcloud.com/users/49384150" username="Scoman613">> info=#<OmniAuth::AuthHash::InfoHash image="https://i1.sndcdn.com/avatars-000055067797-6q8msf-large.jpg?3eddc42" nickname="Scoman613"> provider="soundcloud" uid=49384150>

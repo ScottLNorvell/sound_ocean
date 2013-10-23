@@ -1,7 +1,5 @@
 var target_objects = {}, avatar, layer, text, songs = {};
 
-var colors = ['yellow', 'blue', 'green', 'purple', 'orange'];
-
 var out_of_bounds = false;
 var discovering_song = false;
 
@@ -12,8 +10,6 @@ var current_track_data = {};
 
 var circ_points, tracks, scr_width, scr_height,
     velocity = 2;
-
-var genre = 'folk'; //prompt('genre please');
 
 var wave1, wave2, wave3;
 
@@ -30,7 +26,7 @@ window.onload = function() {
   wave2.Initialize( 'world2', .35 );
   wave3.Initialize( 'world3', .78 );
 
-  circ_points = randomLocations(limits, colors);
+  circ_points = randomLocations(limits);
 
   $('#genre-button').click(function(e) { //wrapper for genre onclick!
 
@@ -45,8 +41,8 @@ window.onload = function() {
     })
     .done(function(data) {
       // load all the audio
-      // store locally
       // pop last 5
+      // store locally
       // feed to loadSounds
       var ln = data.length;
       tracks = data.splice(ln - 5, ln);
@@ -71,12 +67,12 @@ function loadSounds(track_data, reload) {
       volume: 0,
       id: id,
       loops: 5,
-      // onload: function() { console.log("loaded " + title)},
       position: 500
     }, function(sound) {
         console.log(title);
         sound.onPosition(550, function(position) { 
-          // possibly allow this to update scrollbar and 
+          // Here is where we can monitor if songs are playing!
+
           console.log(id + ' reached position ' + position)
         });
         songs[id] = sound;
@@ -91,9 +87,7 @@ function loadSounds(track_data, reload) {
       drawGame(); 
       console.log('songs loaded');
     } else {
-      console.log('setting timeout');
       setTimeout( function() { 
-        console.log('timeout dunzo');
         out_of_bounds = false;
         drawGame();
       }, 1000)
@@ -112,7 +106,7 @@ function redrawGame() {
 
   // get new random points
   limits = getLimits(scr_height, scr_width);
-  circ_points = randomLocations(limits, colors);
+  circ_points = randomLocations(limits);
 
   // get next 5 tracks
   data = JSON.parse(localStorage.getItem('tracks'));
@@ -318,13 +312,6 @@ function drawGame() {
     duration: .5,
     easing: Kinetic.Easings.StrongEaseOut
   });
-
-  // var slowDown = new Kinetic.Tween({
-  //   node: avatar,
-  //   velocity: velocity,
-  //   duration: 1,
-  //   easing: Kinetic.Easings.StrongEaseOut
-  // });
 
   var moveUp = new Kinetic.Animation(function(frame) {
     if (!out_of_bounds) {
@@ -581,7 +568,7 @@ function randomPt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function randomLocations(limits, colors) {
+function randomLocations(limits) {
   var circ_points = [];
   limits.splice(randomPt(0, limits.length - 1), 1);
   $.each(limits, function(i) {
@@ -589,7 +576,7 @@ function randomLocations(limits, colors) {
     var circ_point = {};
     circ_point.x = randomPt(limit.xMin,limit.xMax);
     circ_point.y = randomPt(limit.yMin,limit.yMax);
-    circ_point.color = colors[i];
+    // circ_point.color = colors[i];
     circ_points.push(circ_point);
   });
   return circ_points
