@@ -1,23 +1,34 @@
-var target_objects = {}, avatar, layer, text, songs = {};
 
-var out_of_bounds = false;
-var discovering_song = false;
+// Globals for animation rendering:
+var out_of_bounds = false,
+    discovering_song = false,
+    alerted = false,
+    target_objects = {}; // move to game constructor
 
-// keep track of keys pressed
+// Globals for Key events
 var pressed = {};
 
-var current_track_data = {};
-
-var circ_points, tracks, scr_width, scr_height,
+// Globals for canvas rendering:
+var circ_points, 
+    scr_width, 
+    scr_height, 
+    avatar, // move to game constructor
+    layer, // move to game constructor
     velocity = 2;
 
+// Globals for audio loading:
+var tracks, 
+    songs = {}, // stores SC.stream objects
+    current_track_data = {};
+
+// Globals for drawing waves:
 var wave1, wave2, wave3;
 
 window.onload = function() {
 
   scr_width = window.innerWidth;
   scr_height = window.innerHeight;
-  limits = getLimits(scr_height, scr_width);
+  var limits = getLimits(scr_height, scr_width);
 
   wave1 = new Wave();
   wave2 = new Wave();
@@ -29,11 +40,10 @@ window.onload = function() {
   circ_points = randomLocations(limits);
 
   $('#genre-button').click(function(e) { //wrapper for genre onclick!
-
     var genre = $('#genre-select').val();
-    console.log('fetching songs for genre = ' + genre);
     resetGameParams();
 
+    // get songs from SoundCloud by Genre:
     $.ajax({
       url: '/get_songs',
       dataType: 'json',
@@ -43,10 +53,8 @@ window.onload = function() {
       // load all the audio
       // pop last 5
       // store locally
-      // feed to loadSounds
-      var ln = data.length;
-      tracks = data.splice(ln - 5, ln);
-      localStorage.setItem('tracks', JSON.stringify(data));
+      // feed to loadSounds      
+      tracks = getFiveAndReStore(data); // pop 5 tracks and store locally
       loadSounds(tracks);
     })
   }); //wrapper for genre onclick!
@@ -69,11 +77,11 @@ function loadSounds(track_data, reload) {
       loops: 5,
       position: 500
     }, function(sound) {
-        console.log(title);
+        // console.log(title);
         sound.onPosition(550, function(position) { 
           // Here is where we can monitor if songs are playing!
 
-          console.log(id + ' reached position ' + position)
+          console.log(id + ' reached position ' + position);
         });
         songs[id] = sound;
         sound.play()
@@ -85,7 +93,6 @@ function loadSounds(track_data, reload) {
   SC.whenStreamingReady(function() {
     if (!reload) {
       drawGame(); 
-      console.log('songs loaded');
     } else {
       setTimeout( function() { 
         out_of_bounds = false;
@@ -105,17 +112,15 @@ function redrawGame() {
   scr_height = window.innerHeight;
 
   // get new random points
-  limits = getLimits(scr_height, scr_width);
+  var limits = getLimits(scr_height, scr_width);
   circ_points = randomLocations(limits);
 
   // get next 5 tracks
   data = JSON.parse(localStorage.getItem('tracks'));
-  var ln = data.length;
-  tracks = data.splice(ln - 5, ln);
-  console.log('tracks = ', tracks)
-  console.log('tracks.length = ', tracks.length)
-
-  localStorage.setItem('tracks', JSON.stringify(data));
+  // var ln = data.length;
+  tracks = getFiveAndReStore(data);
+  
+  // localStorage.setItem('tracks', JSON.stringify(data));
   loadSounds(tracks, true);
 
 }
@@ -125,15 +130,31 @@ function resetGameParams() {
   $.each(songs, function(i,song ) { song.destruct(); } );
   songs = {};
   target_objects = {};
+  clearGameKeys();
+  alerted = false;
+}
+
+function clearGameKeys() {
   KeyboardJS.clear('up');
   KeyboardJS.clear('down');
   KeyboardJS.clear('left');
   KeyboardJS.clear('right');
   KeyboardJS.clear('space');
-  alerted = false;
+}
+
+function getFiveAndReStore(data) {
+  var ln = data.length;
+  var popped_data = data.splice(ln - 5, ln);
+  localStorage.setItem('tracks', JSON.stringify(data));
+  return popped_data 
 }
 
 function drawGame() {
+  
+// =======================================================
+// ========== move to Game constructer ===================
+// =======================================================
+
   // make stage
   var stage = new Kinetic.Stage({
     container: 'game-container',
@@ -179,25 +200,17 @@ function drawGame() {
     layer.add(circle);
   });
 
-  // make text
-  text = new Kinetic.Text({
-    x: 10,
-    y: 10,
-    fontFamily: 'Helvetica',
-    fontSize: 24,
-    text: 'Hit an Arrow Key!',
-    fill: 'black'
-  });
-
-  // add circle and text to layer
-  layer.add(text);
-
   avatar_layer.add(avatar);
 
   // add the layer to the stage
   stage.add(layer);
   stage.add(avatar_layer);
+// =======================================================
 
+
+// =======================================================
+// =============== move to keys function =================
+// =======================================================
 
   // ======== Key Events! ========
 
@@ -301,7 +314,12 @@ function drawGame() {
         pressed['space'] = false;
       }
   });
+// =======================================================
 
+
+// =======================================================
+// ============== move to anims object ===================
+// =======================================================
 
   // ======== Moving Animations ========
 
@@ -346,10 +364,11 @@ function drawGame() {
       checkCirclePosition();
     }
   }, avatar_layer);
+// =======================================================
 
-}
+} // current end of drawGame()
 
-var alerted = false;
+
 // function for circle interactions
 function checkCirclePosition() {
   var distance, volume;
@@ -423,8 +442,6 @@ function checkCirclePosition() {
           
         }
 
-        text.setText(targObj.getName());
-
         targSong.setVolume(100);
 
       } else if (distance <= 200) {
@@ -437,7 +454,6 @@ function checkCirclePosition() {
         targObj.setOpacity(opacity);
         targObj.setRadius(radius);
         targSong.setVolume(volume);
-        text.setText('Circle Position = {x: ' + Math.round(pos.x) + ', y: ' + Math.round(pos.y) + "} Distance = " + Math.round(distance) + " Volume = " + Math.round(volume));
       } else {
         targObj.setOpacity(0.1);
         targSong.setVolume(0);
@@ -517,12 +533,6 @@ function discoverSong (track_data) {
     var songObj = songs[track_id];
     var targObj = target_objects[track_id];
 
-    // happens right after touching song!    
-    // $('#discovered-song-title').html(song_data.title);
-
-
-    // discovering_song = false;
-
     $('#current-user-score').html(data.user_score);
     var songli = $('<li>');
     var songlink = $('<a>').attr({
@@ -532,10 +542,6 @@ function discoverSong (track_data) {
     songli.append(songlink);
     $('#playlist-ul').prepend(songli);
 
-    // destroySong(track_id);
-
-
-
   })
   .always(function() {
     discovering_song = false;
@@ -544,7 +550,7 @@ function discoverSong (track_data) {
   })
   
 
-  console.log(track_data);
+  // console.log(track_data);
 }
 
 function getDistanceFrom(target) {
@@ -553,14 +559,11 @@ function getDistanceFrom(target) {
   var distance = Math.sqrt( Math.pow((pos.x - targ_pos.x), 2) + Math.pow((pos.y - targ_pos.y), 2)  );
   
   if (distance > 225) {
-    // will eventually return false so we don't redraw canvas each
+    // don't render any animations if outside target distance
     return false
-  
-  } else {
-    // console.log("inside!")
-    
-    return distance;
 
+  } else {
+    return distance;
   }
 }
 
@@ -570,13 +573,13 @@ function randomPt (min, max) {
 
 function randomLocations(limits) {
   var circ_points = [];
+  // throw one out, possibly save to as avatar position?
   limits.splice(randomPt(0, limits.length - 1), 1);
   $.each(limits, function(i) {
     var limit = limits[i];
     var circ_point = {};
     circ_point.x = randomPt(limit.xMin,limit.xMax);
     circ_point.y = randomPt(limit.yMin,limit.yMax);
-    // circ_point.color = colors[i];
     circ_points.push(circ_point);
   });
   return circ_points
