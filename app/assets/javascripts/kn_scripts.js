@@ -1,18 +1,17 @@
 
 // Globals for animation rendering:
-var out_of_bounds = false,
+var anims,
+    out_of_bounds = false,
     discovering_song = false,
     alerted = false,
     target_objects = {}; // move to game constructor
-
-// Globals for Key events
-var pressed = {};
 
 // Globals for canvas rendering:
 var circ_points, 
     scr_width, 
     scr_height, 
-    avatar, // move to game constructor
+    avatar,
+    avatar_layer, // move to game constructor
     layer, // move to game constructor
     velocity = 2;
 
@@ -134,13 +133,7 @@ function resetGameParams() {
   alerted = false;
 }
 
-function clearGameKeys() {
-  KeyboardJS.clear('up');
-  KeyboardJS.clear('down');
-  KeyboardJS.clear('left');
-  KeyboardJS.clear('right');
-  KeyboardJS.clear('space');
-}
+
 
 function getFiveAndReStore(data) {
   var ln = data.length;
@@ -162,7 +155,7 @@ function drawGame() {
     height: scr_height
   });
 
-  var avatar_layer = new Kinetic.Layer();
+  avatar_layer = new Kinetic.Layer();
 
   // make layer
   layer = new Kinetic.Layer();
@@ -206,13 +199,14 @@ function drawGame() {
   stage.add(layer);
   stage.add(avatar_layer);
 // =======================================================
+  anims = new Animations(avatar, avatar_layer);
+  setGameKeys();
+} // current end of drawGame()
 
 
-// =======================================================
-// =============== move to keys function =================
-// =======================================================
-
-  // ======== Key Events! ========
+// ======== Key Events! ========
+function setGameKeys() {
+  var pressed = {};
 
   // 'up'
   KeyboardJS.on('up',
@@ -222,15 +216,15 @@ function drawGame() {
       // prevent repeating
       if (!pressed['up']) {
         pressed['up'] = true;
-        moveDown.stop();
-        moveUp.start();      
+        anims.moveDown.stop();
+        anims.moveUp.start();      
       }
     },
     // key release function 
     function(e, keysPressed, keyCombo) { 
       if (pressed['up']) {
         pressed['up'] = false;
-        moveUp.stop(); 
+        anims.moveUp.stop(); 
       }
   });
 
@@ -242,15 +236,15 @@ function drawGame() {
       // prevent repeating
       if (!pressed['down']) {
         pressed['down'] = true;
-        moveUp.stop();
-        moveDown.start();      
+        anims.moveUp.stop();
+        anims.moveDown.start();      
       }
     },
     // key release function 
     function(e, keysPressed, keyCombo) { 
       if (pressed['down']) {
         pressed['down'] = false;
-        moveDown.stop(); 
+        anims.moveDown.stop(); 
       }
   });
 
@@ -262,8 +256,8 @@ function drawGame() {
       // prevent repeating
       if (!pressed['left']) {
         pressed['left'] = true;
-        moveRight.stop();
-        moveLeft.start();
+        anims.moveRight.stop();
+        anims.moveLeft.start();
 
       }
     },
@@ -271,7 +265,7 @@ function drawGame() {
     function(e, keysPressed, keyCombo) { 
       if (pressed['left']) {
         pressed['left'] = false;
-        moveLeft.stop(); 
+        anims.moveLeft.stop(); 
       }
   });
 
@@ -283,15 +277,15 @@ function drawGame() {
       // prevent repeating
       if (!pressed['right']) {
         pressed['right'] = true;
-        moveLeft.stop();
-        moveRight.start();      
+        anims.moveLeft.stop();
+        anims.moveRight.start();      
       }
     },
     // key release function 
     function(e, keysPressed, keyCombo) { 
       if (pressed['right']) {
         pressed['right'] = false;
-        moveRight.stop(); 
+        anims.moveRight.stop(); 
       }
   });
 
@@ -303,8 +297,8 @@ function drawGame() {
       // prevent repeating
       if (!pressed['space']) {
         pressed['space'] = true;
-        speedUp.play();
-        setTimeout( function() { speedUp.reverse() }, 500);
+        anims.speedUp.play();
+        setTimeout( function() { anims.speedUp.reverse() }, 500);
              
       }
     },
@@ -314,59 +308,61 @@ function drawGame() {
         pressed['space'] = false;
       }
   });
-// =======================================================
+} // end of setGameKeys()
 
+function clearGameKeys() {
+  KeyboardJS.clear('up');
+  KeyboardJS.clear('down');
+  KeyboardJS.clear('left');
+  KeyboardJS.clear('right');
+  KeyboardJS.clear('space');
+}
 
-// =======================================================
-// ============== move to anims object ===================
-// =======================================================
-
-  // ======== Moving Animations ========
-
+// ======== Moving Animations ========
+function Animations(av, av_layer) {
   // speed up tween
-  var speedUp = new Kinetic.Tween({
-    node: avatar,
+  this.speedUp = new Kinetic.Tween({
+    node: av,
     velocity: 4,
     duration: .5,
     easing: Kinetic.Easings.StrongEaseOut
   });
 
-  var moveUp = new Kinetic.Animation(function(frame) {
+  this.moveUp = new Kinetic.Animation(function(frame) {
     if (!out_of_bounds) {
-      var currY = avatar.getY();
-      avatar.setY(currY - avatar.getAttr('velocity'))
+      var currY = av.getY();
+      av.setY(currY - av.getAttr('velocity'))
       checkCirclePosition();
     } 
-  }, avatar_layer);
+  }, av_layer);
 
-  var moveDown = new Kinetic.Animation(function(frame) {
+  this.moveDown = new Kinetic.Animation(function(frame) {
     if (!out_of_bounds) {
-      var currY = avatar.getY();
-      avatar.setY(currY + avatar.getAttr('velocity'))
+      var currY = av.getY();
+      av.setY(currY + av.getAttr('velocity'))
       checkCirclePosition();
     }
-  }, avatar_layer);
+  }, av_layer);
 
-  var moveLeft = new Kinetic.Animation(function(frame) {
-
-    if (!out_of_bounds) {
-      var currX = avatar.getX();
-      avatar.setX(currX - avatar.getAttr('velocity'))
-      checkCirclePosition();
-    }
-  }, avatar_layer);
-
-  var moveRight = new Kinetic.Animation(function(frame) {
+  this.moveLeft = new Kinetic.Animation(function(frame) {
 
     if (!out_of_bounds) {
-      var currX = avatar.getX();
-      avatar.setX(currX + avatar.getAttr('velocity'))
+      var currX = av.getX();
+      av.setX(currX - av.getAttr('velocity'))
       checkCirclePosition();
     }
-  }, avatar_layer);
+  }, av_layer);
+
+  this.moveRight = new Kinetic.Animation(function(frame) {
+
+    if (!out_of_bounds) {
+      var currX = av.getX();
+      av.setX(currX + av.getAttr('velocity'))
+      checkCirclePosition();
+    }
+  }, av_layer);
+} // end Animations constructor
 // =======================================================
-
-} // current end of drawGame()
 
 
 // function for circle interactions
@@ -401,6 +397,7 @@ function checkCirclePosition() {
           $('#discovered-song-artist').html(track_data.artist);
           
           popSong(track_data.id);
+          clearGameKeys();
 
           $('#current-song').bPopup({
             transition: "slideUp",
@@ -414,7 +411,7 @@ function checkCirclePosition() {
           });
 
           $('#add-button').click(function(e) {
-            console.log("add button for ", current_track_data);
+            // console.log("add button for ", current_track_data);
 
             discoverSong(current_track_data);
 
@@ -423,18 +420,21 @@ function checkCirclePosition() {
               transitionClose: "slideDown",
               opacity: "0"
             }).close();
+            setGameKeys();
           });
           
           $('#no-thanks').click(function(e) {
 
-            console.log("no-thanks button for ", current_track_data);
+            // console.log("no-thanks button for ", current_track_data);
             destroySong(current_track_data.id);
 
             discovering_song = false;
             $('#current-song').bPopup({
               transitionClose: "slideDown",
               opacity: "0"
-              }).close();
+            }).close();
+            setGameKeys();
+
           });
 
           // add to playlist
