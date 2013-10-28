@@ -22,6 +22,7 @@ window.onload = function() {
   scr_width = window.innerWidth;
   scr_height = window.innerHeight;
   limits = getLimits(scr_height, scr_width);
+  console.log("[ limits ]=", limits);
 
   wave1 = new Wave();
   wave2 = new Wave();
@@ -50,11 +51,12 @@ window.onload = function() {
       // feed to loadSounds
       var ln = data.length;
       tracks = data.splice(ln - 5, ln);
+      // question: why not do (ln-5, 5)? this would mean that starting from the last 5 elements remove 5. wouldn't the result be the same?
+      console.log("[ tracks ]=", tracks);
       localStorage.setItem('tracks', JSON.stringify(data));
       loadSounds(tracks);
     })
   }); //wrapper for genre onclick!
-
 }
 
 function loadSounds(track_data, reload) {
@@ -577,12 +579,18 @@ function getDistanceFrom(target) {
 }
 
 function randomPt (min, max) {
+    console.log("[ max-min + 1 ]=", max - min + 1 );
+    console.log('[ Math.random() * (max - min + 1) ]=', (Math.random() * (max - min + 1)) );
+    console.log("[ Math.floor(Math.random() * (max - min + 1)) + min ]=", Math.floor(Math.random() * (max - min + 1)) + min );
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// note: what is going on here...
 function randomLocations(limits, colors) {
   var circ_points = [];
+  console.log("[ limits.splice(randomPt(0, limits.length - 1), 1) ]=", limits.splice(randomPt(0, limits.length - 1), 1));
   limits.splice(randomPt(0, limits.length - 1), 1);
+  // question: what is this for? why cant we just run the each function on limits without the splice above..
   $.each(limits, function(i) {
     var limit = limits[i];
     var circ_point = {};
@@ -591,14 +599,19 @@ function randomLocations(limits, colors) {
     circ_point.color = colors[i];
     circ_points.push(circ_point);
   });
+  console.log("[ circ_points ]=", circ_points );
   return circ_points
 }
 
 function getLimits(height, width) {
+  // note: this places the screen into 6 different sections where the sound circles are placed. 
   var b = 75, //buffer
       x1 = Math.floor(width/3),
-      x2 = Math.floor(width - width/3),
+      x2 = Math.floor(width - width/3),      
       y1 = Math.floor(height/2);
+      /*console.log("[ x1 ]=", x1 );
+      console.log("[ x2 ]=", x2 );
+      console.log("[ y1 ]=", y1 );*/
   // I can possibly make this more programmatic?
   return [{ //a
       xMin: b,
