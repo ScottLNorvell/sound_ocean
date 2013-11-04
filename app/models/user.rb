@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :score, :username, :sc_access_token
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :score, :username, :sc_access_token, :provider
 
   has_many :discoveries, foreign_key: "discoverer_id", class_name: 'Song'
   has_many :playlists
