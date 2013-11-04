@@ -44,9 +44,9 @@ class GameController < ApplicationController
 		render json: tracks
   end
 
-  def test
-  	render json: [ENV["SOUND_OCEAN_SC_CLIENT_ID"], ENV["SOUND_OCEAN_SC_CLIENT_SECRET"]]
-  end
+  # def test
+  # 	render json: [ENV["SOUND_OCEAN_SC_CLIENT_ID"], ENV["SOUND_OCEAN_SC_CLIENT_SECRET"]]
+  # end
 
 
 
