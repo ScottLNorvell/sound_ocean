@@ -3,9 +3,9 @@
 
 <h1>Sign In</h1>
 
-<%- resource_class.omniauth_providers.each do |provider| %>
-<%= link_to image_tag("btn-connect-sc-l.png", :border => 0), omniauth_authorize_path(resource_name, provider), :class => "sc-button" %><br />
-<% end -%>
+<%# resource_class.omniauth_providers.each do |provider| %>
+<%# link_to image_tag("btn-connect-sc-l.png", :border => 0), omniauth_authorize_path(resource_name, provider), :class => "sc-button" %><br />
+<%# end -%>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 <!-- add class to div later to modify form. -->
