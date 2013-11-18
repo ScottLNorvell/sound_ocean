@@ -2,12 +2,12 @@
 
 #### Explore music by swimming in an Ocean of Sound
 
-View on [Heroku](http://sound-ocean.herokuapp.com)  
+View at [sound-ocean.com](http://sound-ocean.com)  
 [Github](https://github.com/ScottLNorvell/sound_ocean.git)
 
 ---
 
-A unique music app that gamifies discovering new music. Actively discover new music by 'swimming' through a virtual ocean of sound!
+A unique music app that gamifies discovering new music. Actively discover new music by swimming through a virtual ocean of sound!
 
 
 RESOURCES:  
@@ -15,7 +15,8 @@ RESOURCES:
 * SoundCloud API (audio)  
 * Keyboard JS (controls)  
 
-Product backlog:
+Product backlog:  
+
 -User can view playlists  
 -Users can email playlists to themselves  
 -Users can share their playists.  
