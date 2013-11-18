@@ -2,7 +2,7 @@
 
 #### Explore music by swimming in an Ocean of Sound
 
-View on [Heroku](http://sound-ocean.herokuapp.com)  
+View on [Heroku](http://sound-ocean.com)
 [Github](https://github.com/ScottLNorvell/sound_ocean.git)
 
 ---
