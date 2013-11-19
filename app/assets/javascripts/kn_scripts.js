@@ -76,7 +76,6 @@ function loadSounds(track_data, reload) {
       loops: 5,
       position: 500
     }, function(sound) {
-        // console.log(title);
         sound.onPosition(550, function(position) { 
           // Here is where we can monitor if songs are playing!
 
@@ -116,10 +115,7 @@ function redrawGame() {
 
   // get next 5 tracks
   data = JSON.parse(localStorage.getItem('tracks'));
-  // var ln = data.length;
-  tracks = getFiveAndReStore(data);
-  
-  // localStorage.setItem('tracks', JSON.stringify(data));
+  tracks = getFiveAndReStore(data);  
   loadSounds(tracks, true);
 
 }
@@ -436,19 +432,14 @@ function checkCirclePosition() {
             setGameKeys();
 
           });
-
-          // add to playlist
-          // discoverSong(track_data)
           
         }
 
         targSong.setVolume(100);
 
       } else if (distance <= 200) {
-        // var volume_linear = -5/8 * distance + 125;
-        // discovering_song = false;
+        
         var volume = Math.pow((distance - 200),2) / 256; // THANKS DAD!
-        // volume = volume_parabolic;
         var opacity = (-9/1600) * distance + 49/40;
         var radius = (-1/8) * distance + 35;
         targObj.setOpacity(opacity);
@@ -498,8 +489,6 @@ function popSong (track_id) {
 function destroySong (track_id) {
   var songObj = songs[track_id];
   var targObj = target_objects[track_id];
-  // delete songs[track_id]
-  // targObj.remove();
 
   delete target_objects[track_id];
   songObj.destruct();
@@ -549,8 +538,6 @@ function discoverSong (track_data) {
 
   })
   
-
-  // console.log(track_data);
 }
 
 function getDistanceFrom(target) {
@@ -561,7 +548,6 @@ function getDistanceFrom(target) {
   if (distance > 225) {
     // don't render any animations if outside target distance
     return false
-
   } else {
     return distance;
   }

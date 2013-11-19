@@ -200,10 +200,4 @@ function Wave() {
 	
 }
 
-// var wave1 = new Wave();
-// var wave2 = new Wave();
-// var wave3 = new Wave();
-// wave1.Initialize( 'world1', .07 );
-// wave2.Initialize( 'world2', .35 );
-// wave3.Initialize( 'world3', .78 );
 
