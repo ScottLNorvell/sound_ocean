@@ -2,7 +2,14 @@
 <div id="user_nav">
   <span id="logo"><%= link_to image_tag("sound_ocean.png", :border => 0), class: "sound_ocean", id: "left-logo" %></span>
 	<span id="not-opacity">
-	  Exploring as <strong><%= current_user.username %></strong>. | 
+	  Exploring as <strong>
+    
+    <% if user_signed_in? %>
+    <strong><%= current_user.username || current_user.email %></strong>.
+    <% else %>
+    <strong>a GUEST</strong>.
+    <% end %>
+   | 
 	  <%= link_to "Home", root_path %> |
 	  <a href="#" id="new-genre" >New Genre</a> |
     <%= link_to "Logout", destroy_user_session_path, method: :delete %> |
@@ -21,14 +28,17 @@
         <li><a class="playlist-track" href="<%= song.url %>" target="_blank"><%= song.artist %> - <%= song.title %></a></li>
       <% end %>
     <% else %>
-      <li>No Songs! Swim around and discover some!</li>
+      <li id="no-songs">No Songs! Swim around and discover some!</li>
     <% end %>
     
   </ul>
   <%= link_to "Ocean Jams", playlists_show_path, class: "button-to", id: "ocean-playlist" %>
 </div>
+
+<% if user_signed_in? %>
+
 <div class="aside" id="ranking">
-  <span id="current-user-score">Current Score&nbsp;&nbsp; <%= current_user.score.to_i %></span>
+  <span id="current-user-score">Current Score&nbsp;&nbsp; <%= current_user.present? ? current_user.score.to_i : 0 %></span>
   <ul class="aside-ul" id="ranking-ul">
     <li id="score-title">Top Discoverers</li>
     <% if @top_users %>
@@ -38,6 +48,9 @@
     <% end %>
   </ul>
 </div>
+
+<% end %>
+
 <div id="genre-picker" class="modal">
   <select name="" id="genre-select">
     <option value="folk">Folk</option>

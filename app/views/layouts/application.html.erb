@@ -6,6 +6,9 @@
   <%= javascript_include_tag "application" %>
   <link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+  <script>
+    var user_signed_in = <%= user_signed_in?  %>
+  </script>
   <%= csrf_meta_tags %>
 </head>
 <body>

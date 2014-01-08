@@ -405,7 +405,8 @@ function checkCirclePosition() {
             escClose: false
             // zindex: 99999
           });
-
+          
+          $('#add-button').off('click');
           $('#add-button').click(function(e) {
             // console.log("add button for ", current_track_data);
 
@@ -498,7 +499,6 @@ function destroySong (track_id) {
 
 function discoverSong (track_data) {
   // add song to db
-
   // after user clicks add to playlist
   var params = {
     song: {
@@ -528,8 +528,11 @@ function discoverSong (track_data) {
       href: song_data.url,
       target: '_blank'
     }).html(song_data.artist + ' - ' + song_data.title);
+
     songli.append(songlink);
+
     $('#playlist-ul').prepend(songli);
+    $('#no-songs').remove();
 
   })
   .always(function() {

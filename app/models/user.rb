@@ -53,6 +53,9 @@ class User < ActiveRecord::Base
 
 	def init
 		self.score ||= 0
+		if !self.username || self.username.length < 1
+			self.username = self.email.split('@')[0]
+		end 
 	end
 
 end

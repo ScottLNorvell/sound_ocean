@@ -20,7 +20,7 @@ SoundOcean::Application.routes.draw do
 #   edit_user_registration GET    /users/edit(.:format)          devise/registrations#edit
 #                          PUT    /users(.:format)               devise/registrations#update
 #                          DELETE /users(.:format)               devise/registrations#destroy
-  root :to => "users#index"
+  root :to => "welcome#index"
 
   get 'game' => 'game#index'
 
