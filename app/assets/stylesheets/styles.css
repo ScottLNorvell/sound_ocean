@@ -72,6 +72,11 @@ a {
   
   -webkit-border-radius: 20px;
 }
+
+.hidden-boxes {
+  display: none;
+}
+
 #flash_alert {
   color: #fff;
   text-align: center;
