@@ -1,13 +1,14 @@
+<div id="devise-container">
 <div id="welcome-box" class="devise-box">
 
-	<%= image_tag "sound_ocean.png", :border => 0 %>
+	<a href="/" class="ajax-butt"><%= image_tag "sound_ocean.png", :border => 0 %></a>
 
 	<h1>Welcome to the Sound Ocean</h1>
 	
 
     <div id="options">
 		<% if user_signed_in? %>
-			<div class="form-elements">Signed in as <%= current_user.username %>. Not you?<br /></div>
+			<div class="form-elements">Signed in as <%= current_user.username %>.<br /></div>
 			<br />
     		<div class="form-elements"><%= link_to "Get back in the ocean already!", game_path, class: "button-to" %><br /></div>
 			<br />
@@ -15,13 +16,10 @@
     		
     	<% else %>	
     		<!-- <p><%# link_to image_tag("btn-connect-sc-l.png", :border => 0), user_omniauth_authorize_path(:soundcloud) %></p> -->
-			<p><%= link_to "First time at sea? (sign up)", new_user_registration_path, class: "button-to" %></p>
-			<p><%= link_to "Dive in! (log in)", new_user_session_path, class: "button-to" %></p>
+			<p><%= link_to "First time at sea? (sign up)", new_user_registration_path, class: "button-to ajax-butt" %></p>
+			<p><%= link_to "Dive in! (log in)", new_user_session_path, class: "button-to ajax-butt" %></p>
 			<p><%= link_to "Swim as a Guest", game_path, class: "button-to" %></p>
 		</div>
 		<% end %>
 </div>
-
-<div class="hidden-boxes">
-<%# render partial: 'devise/sessions/new' %>
 </div>
