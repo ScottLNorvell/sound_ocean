@@ -94,7 +94,7 @@ a {
 .button-to {
     font-family: 'Raleway', sans-serif;
     font-size: 1em;
-    padding: 10px 15px;
+    padding: 20px 15px;
     margin: 0px 20px 10px 20px;
     background: #4FC1DB;
     color: #FFF;
@@ -112,7 +112,12 @@ a {
 }
 a.button-to {
   display: inline-block;
-  padding: 20px 15px;
+  /*padding: 20px 15px;*/
+}
+
+.secondary {
+  padding: 12px;
+  font-size: .9em;
 }
 
 .button-to:hover {

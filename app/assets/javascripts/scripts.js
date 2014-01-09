@@ -1,5 +1,7 @@
+var mme;
 $(document).ready(function() {
 
+  setDeviseButtons();  
 
   $('#playlist-menu').hover(function() {
     animateMenuIn();
@@ -105,4 +107,26 @@ function animateRankingOut() {
   $side_menu = $('#ranking');
   $side_menu.stop().animate({left: '-200px', bottom: '-200px'}, animation_duration);
   $side_menu.removeClass('active');
+}
+
+function setDeviseButtons() {
+  $(".ajax-butt").off('click');
+  if ($('#devise-container').length > 0){
+    $(".ajax-butt").click(function(e) {
+      var self = $(this);
+      e.preventDefault();
+
+      $.get(self.attr('href'), function(data) {
+        
+        var html = $(data).filter('.devise-box');
+        if (html.length < 1) {
+          html = $(data).find('.devise-box');
+        }
+        $("#devise-container").html(html.eq(0));
+        $('.error-div').remove();
+        setDeviseButtons();
+      })
+    });  
+  }
+  
 }
