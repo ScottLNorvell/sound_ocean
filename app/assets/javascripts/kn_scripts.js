@@ -500,6 +500,8 @@ function destroySong (track_id) {
 function discoverSong (track_data) {
   // add song to db
   // after user clicks add to playlist
+  destroySong(current_track_data.id);
+
   var params = {
     song: {
       sc_track_id: track_data.id,
@@ -537,7 +539,7 @@ function discoverSong (track_data) {
   })
   .always(function() {
     discovering_song = false;
-    destroySong(current_track_data.id);
+    // destroySong(current_track_data.id);
 
   })
   
