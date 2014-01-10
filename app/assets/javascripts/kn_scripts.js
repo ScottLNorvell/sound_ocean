@@ -23,7 +23,7 @@ var circ_points,
 // Globals for audio loading:
 var songs = {} // stores SC.stream objects
 
-window.onload = function() {
+$(function() {
   // draw the background waves
   waves.makeWaves();
   // initialize SC client with key
@@ -52,7 +52,7 @@ window.onload = function() {
     })
   }); //wrapper for genre onclick!
 
-}
+})
 
 function redrawGame() {
   // clear/reset values
@@ -66,9 +66,7 @@ function redrawGame() {
   var limits = getLimits(scr_height, scr_width);
   circ_points = randomLocations(limits);
 
-  // get next 5 tracks
-  // data = JSON.parse(localStorage.getItem('tracks'));
-  // tracks = getFiveAndReStore();  
+  // get next 5 tracks  
   sounds.loadSounds({reload: true}, drawGame);
 
 }
@@ -115,9 +113,11 @@ function drawGame(current_tracks) {
 
   // console.log("track_data = ", tracks)
 
-  $.each(current_tracks, function(i, track) {
-    var pt = circ_points[i];
-    var circle = new Kinetic.Circle({
+  $.each(circ_points, function(i, point) {
+    var circle,track,pt;
+    pt = point;
+    track = current_tracks[i];
+    circle = new Kinetic.Circle({
       x: pt.x,
       y: pt.y,
       radius: 10,
@@ -450,9 +450,6 @@ function discoverSong (track_data) {
   .done(function(data) {
     // update user score, etc...
     var song_data = data.song;
-    var track_id = song_data.sc_track_id;
-    var songObj = songs[track_id];
-    var targObj = target_objects[track_id];
 
     $('#current-user-score').html(data.user_score);
     var songli = $('<li>');
