@@ -1,5 +1,28 @@
+var waves = waves || {}
 
-function Wave() {
+waves.wave_positions = [.07, .35, .78];
+
+waves.makeWaves = function() {
+	$.each(waves.wave_positions, function(i, pos) {
+		var label = i + 1;
+		waves['wave' + label] = new waves.Wave();
+		waves['wave' + label].Initialize('world' + label, pos);
+	});
+}
+
+waves.twitchTheWave = function(av) {
+  // console.log('twitching')
+  var av_pos = av.getAbsolutePosition();
+
+  $.each(waves.wave_positions, function(i, wave_pos) {
+  	var wave_y = window.innerHeight * wave_pos;
+  	if (av_pos.y >= wave_y - 2 && av_pos.y <= wave_y + 2 ) {
+    	waves['wave' + (i+1) ].makeImpulse(av_pos.x, 1)
+    }
+  });
+}
+
+waves.Wave = function() {
 	
 	/** The current dimensions of the screen (updated on resize) */
 	var WIDTH = window.innerWidth;

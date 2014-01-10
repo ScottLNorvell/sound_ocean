@@ -21,7 +21,7 @@ var tracks,
     current_track_data = {};
 
 // Globals for drawing waves:
-var wave1, wave2, wave3;
+var waves = waves || {}
 
 window.onload = function() {
 
@@ -29,12 +29,7 @@ window.onload = function() {
   scr_height = window.innerHeight;
   var limits = getLimits(scr_height, scr_width);
 
-  wave1 = new Wave();
-  wave2 = new Wave();
-  wave3 = new Wave();
-  wave1.Initialize( 'world1', .07 );
-  wave2.Initialize( 'world2', .35 );
-  wave3.Initialize( 'world3', .78 );
+  waves.makeWaves();
 
   circ_points = randomLocations(limits);
 
@@ -453,23 +448,8 @@ function checkCirclePosition() {
     } 
   }
   layer.draw();
-  twitchTheWave();
+  waves.twitchTheWave(avatar);
   
-}
-
-function twitchTheWave() {
-  // console.log('twitching')
-  var pos = avatar.getAbsolutePosition();
-  var wave1_y = scr_height * .07
-  var wave2_y = scr_height * .35
-  var wave3_y = scr_height * .78
-  if (pos.y >= wave1_y - 2 && pos.y <= wave1_y + 2 ) {
-    wave1.makeImpulse(pos.x, 1)
-  } else if (pos.y >= wave2_y - 2 && pos.y <= wave2_y + 2 ) {
-    wave2.makeImpulse(pos.x, 1)
-  } else if (pos.y >= wave3_y - 2 && pos.y <= wave3_y + 2 ) {
-    wave3.makeImpulse(pos.x, 1)
-  }
 }
 
 function popSong (track_id) {

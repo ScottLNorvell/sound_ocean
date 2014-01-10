@@ -1,4 +1,4 @@
-var mme;
+
 $(document).ready(function() {
 
   setDeviseButtons();  
