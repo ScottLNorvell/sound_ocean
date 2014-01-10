@@ -38,7 +38,6 @@ sounds.loadSounds = function(opts, callback) {
       callback(sounds.current_tracks); 
     } else {
       setTimeout( function() { 
-        out_of_bounds = false;
         callback(sounds.current_tracks);
       }, 1000)
     }

@@ -19,5 +19,6 @@
 //= require keyboard
 //= require waves
 //= require sounds
+//= require game
 //= require kn_scripts
 //= require_tree .

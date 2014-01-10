@@ -4,21 +4,13 @@ var waves = waves || {};
 // sounds obj from sounds.js:
 var sounds = sounds || {};
 
-// Globals for animation rendering:
-var anims,
-    out_of_bounds = false,
-    discovering_song = false,
-    alerted = false,
-    target_objects = {}; // move to game constructor
+// game obj from game.js
+var game = game || {};
 
-// Globals for canvas rendering:
-var circ_points, 
-    scr_width, 
-    scr_height, 
-    avatar,
-    avatar_layer, // move to game constructor
-    layer, // move to game constructor
-    velocity = 2;
+// var vis = vis || {};
+
+// Globals for animation rendering:
+var target_objects = {}; // move to game constructor
 
 // Globals for audio loading:
 var songs = {} // stores SC.stream objects
@@ -29,13 +21,8 @@ $(function() {
   // initialize SC client with key
   sounds.Initialize('560d601638096e37de666da699486214');
 
-  scr_width = window.innerWidth;
-  scr_height = window.innerHeight;
-  var limits = getLimits(scr_height, scr_width);
-
-
-
-  circ_points = randomLocations(limits);
+  // set game defaults:
+  game.Initialize();
 
   $('#genre-button').click(function(e) { //wrapper for genre onclick!
     var genre = $('#genre-select').val();
@@ -58,13 +45,7 @@ function redrawGame() {
   // clear/reset values
   resetGameParams();
 
-  // re-check window dimensions
-  scr_width = window.innerWidth;
-  scr_height = window.innerHeight;
-
-  // get new random points
-  var limits = getLimits(scr_height, scr_width);
-  circ_points = randomLocations(limits);
+  game.Initialize();
 
   // get next 5 tracks  
   sounds.loadSounds({reload: true}, drawGame);
@@ -76,21 +57,18 @@ function resetGameParams() {
   $.each(songs, function(i,song ) { song.destruct(); } );
   songs = {};
   target_objects = {};
-  clearGameKeys();
-  alerted = false;
+  game.clearGameKeys();
+  game.alerted = false;
 }
 
 function drawGame(current_tracks) {
-  
-// =======================================================
-// ========== move to Game constructer ===================
-// =======================================================
+  var stage, layer, avatar, avatar_layer;  
 
   // make stage
-  var stage = new Kinetic.Stage({
+  stage = new Kinetic.Stage({
     container: 'game-container',
-    width: scr_width,
-    height: scr_height
+    width: game.WIDTH,
+    height: game.HEIGHT
   });
 
   avatar_layer = new Kinetic.Layer();
@@ -100,22 +78,21 @@ function drawGame(current_tracks) {
 
   // make avatar
   avatar = new Kinetic.Circle({
-    x: scr_width / 2,
-    y: scr_height / 2,
+    x: game.WIDTH / 2,
+    y: game.HEIGHT / 2,
     radius: 20,
     fillRadialGradientStartPoint: 0,
     fillRadialGradientStartRadius: 0,
     fillRadialGradientEndPoint: 0,
     fillRadialGradientEndRadius: 15,
     fillRadialGradientColorStops: [0.5, '#90FEFB', 1, '#54FF9F'],
-    velocity: velocity
+    velocity: game.VELOCITY
   });
 
   // console.log("track_data = ", tracks)
 
-  $.each(circ_points, function(i, point) {
-    var circle,track,pt;
-    pt = point;
+  $.each(game.circ_points, function(i, pt) {
+    var circle,track;
     track = current_tracks[i];
     circle = new Kinetic.Circle({
       x: pt.x,
@@ -139,128 +116,18 @@ function drawGame(current_tracks) {
   stage.add(layer);
   stage.add(avatar_layer);
 // =======================================================
-  anims = new Animations(avatar, avatar_layer);
-  setGameKeys();
+  game.animations = new Animations(avatar);
+  game.setGameKeys(game.animations);
 } // current end of drawGame()
 
 
-// ======== Key Events! ========
-function setGameKeys() {
-  var pressed = {};
-
-  // 'up'
-  KeyboardJS.on('up',
-    // key press function 
-    function(e, keysPressed, keyCombo) {
-      e.preventDefault();
-      // prevent repeating
-      if (!pressed['up']) {
-        pressed['up'] = true;
-        anims.moveDown.stop();
-        anims.moveUp.start();      
-      }
-    },
-    // key release function 
-    function(e, keysPressed, keyCombo) { 
-      if (pressed['up']) {
-        pressed['up'] = false;
-        anims.moveUp.stop(); 
-      }
-  });
-
-  // 'down'
-  KeyboardJS.on('down',
-    // key press function 
-    function(e, keysPressed, keyCombo) {
-      e.preventDefault();
-      // prevent repeating
-      if (!pressed['down']) {
-        pressed['down'] = true;
-        anims.moveUp.stop();
-        anims.moveDown.start();      
-      }
-    },
-    // key release function 
-    function(e, keysPressed, keyCombo) { 
-      if (pressed['down']) {
-        pressed['down'] = false;
-        anims.moveDown.stop(); 
-      }
-  });
-
-  // 'left'
-  KeyboardJS.on('left',
-    // key press function 
-    function(e, keysPressed, keyCombo) {
-      e.preventDefault();
-      // prevent repeating
-      if (!pressed['left']) {
-        pressed['left'] = true;
-        anims.moveRight.stop();
-        anims.moveLeft.start();
-
-      }
-    },
-    // key release function 
-    function(e, keysPressed, keyCombo) { 
-      if (pressed['left']) {
-        pressed['left'] = false;
-        anims.moveLeft.stop(); 
-      }
-  });
-
-  // 'right'
-  KeyboardJS.on('right',
-    // key press function 
-    function(e, keysPressed, keyCombo) {
-      e.preventDefault();
-      // prevent repeating
-      if (!pressed['right']) {
-        pressed['right'] = true;
-        anims.moveLeft.stop();
-        anims.moveRight.start();      
-      }
-    },
-    // key release function 
-    function(e, keysPressed, keyCombo) { 
-      if (pressed['right']) {
-        pressed['right'] = false;
-        anims.moveRight.stop(); 
-      }
-  });
-
-  // 'space'
-  KeyboardJS.on('space',
-    // key press function 
-    function(e, keysPressed, keyCombo) {
-      e.preventDefault();
-      // prevent repeating
-      if (!pressed['space']) {
-        pressed['space'] = true;
-        anims.speedUp.play();
-        setTimeout( function() { anims.speedUp.reverse() }, 500);
-             
-      }
-    },
-    // key release function 
-    function(e, keysPressed, keyCombo) { 
-      if (pressed['space']) {
-        pressed['space'] = false;
-      }
-  });
-} // end of setGameKeys()
-
-function clearGameKeys() {
-  KeyboardJS.clear('up');
-  KeyboardJS.clear('down');
-  KeyboardJS.clear('left');
-  KeyboardJS.clear('right');
-  KeyboardJS.clear('space');
-}
-
 // ======== Moving Animations ========
-function Animations(av, av_layer) {
+function Animations(av) {
   // speed up tween
+  var av_layer = av.getLayer();
+
+  game.out_of_bounds = false;
+
   this.speedUp = new Kinetic.Tween({
     node: av,
     velocity: 4,
@@ -269,36 +136,36 @@ function Animations(av, av_layer) {
   });
 
   this.moveUp = new Kinetic.Animation(function(frame) {
-    if (!out_of_bounds) {
+    if (!game.out_of_bounds) {
       var currY = av.getY();
       av.setY(currY - av.getAttr('velocity'))
-      checkCirclePosition();
+      checkCirclePosition(av);
     } 
   }, av_layer);
 
   this.moveDown = new Kinetic.Animation(function(frame) {
-    if (!out_of_bounds) {
+    if (!game.out_of_bounds) {
       var currY = av.getY();
       av.setY(currY + av.getAttr('velocity'))
-      checkCirclePosition();
+      checkCirclePosition(av);
     }
   }, av_layer);
 
   this.moveLeft = new Kinetic.Animation(function(frame) {
 
-    if (!out_of_bounds) {
+    if (!game.out_of_bounds) {
       var currX = av.getX();
       av.setX(currX - av.getAttr('velocity'))
-      checkCirclePosition();
+      checkCirclePosition(av);
     }
   }, av_layer);
 
   this.moveRight = new Kinetic.Animation(function(frame) {
 
-    if (!out_of_bounds) {
+    if (!game.out_of_bounds) {
       var currX = av.getX();
       av.setX(currX + av.getAttr('velocity'))
-      checkCirclePosition();
+      checkCirclePosition(av);
     }
   }, av_layer);
 } // end Animations constructor
@@ -306,15 +173,15 @@ function Animations(av, av_layer) {
 
 
 // function for circle interactions
-function checkCirclePosition() {
+function checkCirclePosition(avatar) {
   var distance, volume;
   var pos = avatar.getAbsolutePosition();
   
   if (pos.x < 0 || pos.x > window.innerWidth || pos.y < 0 || pos.y > window.innerHeight ) {
-    if (!alerted) {
+    if (!game.alerted) {
       
-      alerted = true;
-      out_of_bounds = true;
+      game.alerted = true;
+      game.out_of_bounds = true;
       redrawGame();
       return
     }
@@ -322,22 +189,23 @@ function checkCirclePosition() {
 
   for (i in target_objects) {
     var targObj = target_objects[i];
+    var layer = targObj.getLayer();
     var targSong = songs[targObj.getName()]
-    distance = getDistanceFrom(targObj);
+    distance = getDistanceFrom(targObj, pos);
 
     // only modify if we are close to targObj
     if (distance != false) {
       if (distance <= 40) {
-        if (!discovering_song) {
+        if (!game.discovering_song) {
           var track_data = targObj.getAttr('track_data');
           // var current_track_data = track_data;
-          discovering_song = true;
+          game.discovering_song = true;
 
           $('#discovered-song-title').html(track_data.title);
           $('#discovered-song-artist').html(track_data.artist);
           
           popSong(track_data.id);
-          clearGameKeys();
+          game.clearGameKeys();
 
           $('#current-song').bPopup({
             transition: "slideUp",
@@ -356,12 +224,12 @@ function checkCirclePosition() {
 
             discoverSong(track_data);
 
-            discovering_song = false
+            game.discovering_song = false
             $('#current-song').bPopup({
               transitionClose: "slideDown",
               opacity: "0"
             }).close();
-            setGameKeys();
+            game.setGameKeys(game.animations);
           });
           
           $('#no-thanks').off('click');
@@ -370,12 +238,12 @@ function checkCirclePosition() {
             // console.log("no-thanks button for ", current_track_data);
             destroySong(track_data.id);
 
-            discovering_song = false;
+            game.discovering_song = false;
             $('#current-song').bPopup({
               transitionClose: "slideDown",
               opacity: "0"
             }).close();
-            setGameKeys();
+            game.setGameKeys(game.animations);
 
           });
           
@@ -400,7 +268,7 @@ function checkCirclePosition() {
   layer.draw();
   waves.twitchTheWave(avatar);
   
-}
+} // end of checkCirclePosition()
 
 function popSong (track_id) {
   var songNode = target_objects[track_id];
@@ -411,7 +279,7 @@ function popSong (track_id) {
     radius: 100,
     onFinish: function() {
       this.node.remove();
-      layer.draw();
+      
     }
   });
   popSong.play();
@@ -423,7 +291,7 @@ function destroySong (track_id) {
 
   delete target_objects[track_id];
   songObj.destruct();
-  layer.draw();
+  
 
 } 
 
@@ -465,13 +333,12 @@ function discoverSong (track_data) {
 
   })
   .always(function() {
-    discovering_song = false;
+    game.discovering_song = false;
   })
   
 }
 
-function getDistanceFrom(target) {
-  var pos = avatar.getAbsolutePosition();
+function getDistanceFrom(target, pos) {
   var targ_pos = target.getAbsolutePosition();
   var distance = Math.sqrt( Math.pow((pos.x - targ_pos.x), 2) + Math.pow((pos.y - targ_pos.y), 2)  );
   
@@ -483,67 +350,6 @@ function getDistanceFrom(target) {
   }
 }
 
-function randomPt (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
-function randomLocations(limits) {
-  var circ_points = [];
-  // throw one out, possibly save to as avatar position?
-  limits.splice(randomPt(0, limits.length - 1), 1);
-  $.each(limits, function(i) {
-    var limit = limits[i];
-    var circ_point = {};
-    circ_point.x = randomPt(limit.xMin,limit.xMax);
-    circ_point.y = randomPt(limit.yMin,limit.yMax);
-    circ_points.push(circ_point);
-  });
-  return circ_points
-}
-
-function getLimits(height, width) {
-  var b = 75, //buffer
-      x1 = Math.floor(width/3),
-      x2 = Math.floor(width - width/3),
-      y1 = Math.floor(height/2);
-  // I can possibly make this more programmatic?
-  return [{ //a
-      xMin: b,
-      xMax: x1 - b,
-      yMin: b,
-      yMax: y1 - b
-    },
-    { //b
-      xMin: x1 + b,
-      xMax: x2 - b,
-      yMin: b,
-      yMax: y1 - b
-    },
-    { //c
-      xMin: x2 + b,
-      xMax: width - b,
-      yMin: b,
-      yMax: y1 - b
-    },
-    { //d
-      xMin: b,
-      xMax: x1 - b,
-      yMin: y1 + b,
-      yMax: height - b
-    },
-    { //e
-      xMin: x1 + b,
-      xMax: x2 - b,
-      yMin: y1 + b,
-      yMax: height - b
-    },
-    { //f
-      xMin: x2 + b,
-      xMax: width - b,
-      yMin: y1 + b,
-      yMax: height - b
-    }
-  ]
-}
 
 
