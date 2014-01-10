@@ -18,5 +18,6 @@
 //= require kinetic
 //= require keyboard
 //= require waves
+//= require sounds
 //= require kn_scripts
 //= require_tree .

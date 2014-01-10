@@ -1,3 +1,8 @@
+// wave object from waves.js:
+var waves = waves || {};
+
+// sounds obj from sounds.js:
+var sounds = sounds || {};
 
 // Globals for animation rendering:
 var anims,
@@ -16,20 +21,19 @@ var circ_points,
     velocity = 2;
 
 // Globals for audio loading:
-var tracks, 
-    songs = {}, // stores SC.stream objects
-    current_track_data = {};
-
-// Globals for drawing waves:
-var waves = waves || {}
+var songs = {} // stores SC.stream objects
 
 window.onload = function() {
+  // draw the background waves
+  waves.makeWaves();
+  // initialize SC client with key
+  sounds.Initialize('560d601638096e37de666da699486214');
 
   scr_width = window.innerWidth;
   scr_height = window.innerHeight;
   var limits = getLimits(scr_height, scr_width);
 
-  waves.makeWaves();
+
 
   circ_points = randomLocations(limits);
 
@@ -44,56 +48,10 @@ window.onload = function() {
       data: { genre: genre }
     })
     .done(function(data) {
-      // load all the audio
-      // pop last 5
-      // store locally
-      // feed to loadSounds      
-      tracks = getFiveAndReStore(data); // pop 5 tracks and store locally
-      loadSounds(tracks);
+      sounds.loadSounds({data: data}, drawGame);
     })
   }); //wrapper for genre onclick!
 
-}
-
-function loadSounds(track_data, reload) {
-  // play some songs in the bg
-  SC.initialize({
-    client_id: '560d601638096e37de666da699486214'
-  });
-
-  $.each(track_data, function(i, track) {
-    var id = track.id;
-    var title = track.title;
-
-    SC.stream("/tracks/" + id, {
-      volume: 0,
-      id: id,
-      loops: 5,
-      position: 500
-    }, function(sound) {
-        sound.onPosition(550, function(position) { 
-          // Here is where we can monitor if songs are playing!
-
-          console.log(id + ' reached position ' + position);
-        });
-        songs[id] = sound;
-        sound.play()
-    });
-
-  });
-
-  // update to take advantage of onPosition callback!
-  SC.whenStreamingReady(function() {
-    if (!reload) {
-      drawGame(); 
-    } else {
-      setTimeout( function() { 
-        out_of_bounds = false;
-        drawGame();
-      }, 1000)
-    }
-    
-  });
 }
 
 function redrawGame() {
@@ -109,9 +67,9 @@ function redrawGame() {
   circ_points = randomLocations(limits);
 
   // get next 5 tracks
-  data = JSON.parse(localStorage.getItem('tracks'));
-  tracks = getFiveAndReStore(data);  
-  loadSounds(tracks, true);
+  // data = JSON.parse(localStorage.getItem('tracks'));
+  // tracks = getFiveAndReStore();  
+  sounds.loadSounds({reload: true}, drawGame);
 
 }
 
@@ -124,16 +82,7 @@ function resetGameParams() {
   alerted = false;
 }
 
-
-
-function getFiveAndReStore(data) {
-  var ln = data.length;
-  var popped_data = data.splice(ln - 5, ln);
-  localStorage.setItem('tracks', JSON.stringify(data));
-  return popped_data 
-}
-
-function drawGame() {
+function drawGame(current_tracks) {
   
 // =======================================================
 // ========== move to Game constructer ===================
@@ -166,7 +115,7 @@ function drawGame() {
 
   // console.log("track_data = ", tracks)
 
-  $.each(tracks, function(i, track) {
+  $.each(current_tracks, function(i, track) {
     var pt = circ_points[i];
     var circle = new Kinetic.Circle({
       x: pt.x,
@@ -381,7 +330,7 @@ function checkCirclePosition() {
       if (distance <= 40) {
         if (!discovering_song) {
           var track_data = targObj.getAttr('track_data');
-          current_track_data = track_data;
+          // var current_track_data = track_data;
           discovering_song = true;
 
           $('#discovered-song-title').html(track_data.title);
@@ -405,7 +354,7 @@ function checkCirclePosition() {
           $('#add-button').click(function(e) {
             // console.log("add button for ", current_track_data);
 
-            discoverSong(current_track_data);
+            discoverSong(track_data);
 
             discovering_song = false
             $('#current-song').bPopup({
@@ -415,10 +364,11 @@ function checkCirclePosition() {
             setGameKeys();
           });
           
+          $('#no-thanks').off('click');
           $('#no-thanks').click(function(e) {
 
             // console.log("no-thanks button for ", current_track_data);
-            destroySong(current_track_data.id);
+            destroySong(track_data.id);
 
             discovering_song = false;
             $('#current-song').bPopup({
@@ -480,7 +430,7 @@ function destroySong (track_id) {
 function discoverSong (track_data) {
   // add song to db
   // after user clicks add to playlist
-  destroySong(current_track_data.id);
+  destroySong(track_data.id);
 
   var params = {
     song: {
@@ -519,8 +469,6 @@ function discoverSong (track_data) {
   })
   .always(function() {
     discovering_song = false;
-    // destroySong(current_track_data.id);
-
   })
   
 }
