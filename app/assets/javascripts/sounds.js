@@ -1,5 +1,7 @@
 var sounds = sounds || {}
 
+sounds.songs = {};
+
 sounds.Initialize = function(sc_client_id) {
   SC.initialize({
     client_id: sc_client_id
@@ -26,7 +28,7 @@ sounds.loadSounds = function(opts, callback) {
 
           console.log(id + ' reached position ' + position);
         });
-        songs[id] = sound;
+        sounds.songs[id] = sound;
         sound.play()
     });
 
@@ -49,6 +51,7 @@ sounds.getTracks = function(data) {
   var ln, popped_data;
   if (!data) {
     data = JSON.parse(localStorage.getItem('tracks'));
+    console.log('tracks left = ', data.length)
   } 
   ln = data.length;
   popped_data = data.splice(ln - 5, ln);
